@@ -1,7 +1,7 @@
 ---
 title: 透過Hexo在Github上架設Blog
 date: 2020-11-14
-tags: [Network, server, Blog]
+tags: [Network, Server, Blog]
 ---
 
 ## 事前準備
@@ -137,7 +137,46 @@ theme: next
 
 設定檔在`theme/next/_config.yml`中
 
+詳細請參考[官方的說明](https://theme-next.js.org/docs/getting-started/configuration.html)
 
+```c
+ ---------------------------------------------------------------
+# Scheme Settings
+# ---------------------------------------------------------------
+
+# Schemes
+#scheme: Muse
+scheme: Mist
+#scheme: Pisces
+#scheme: Gemini
+
+# Dark Mode
+darkmode: true
+
+```
+
+以及編輯了基本的Menu
+
+```c
+ ---------------------------------------------------------------
+# Menu Settings
+# ---------------------------------------------------------------
+
+# Usage: `Key: /link/ || icon`
+# Key is the name of menu item. If the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used. Key is case-senstive.
+# Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
+# External url should start with http:// or https://
+menu:
+  home: / || fa fa-home
+  #about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  #schedule: /schedule/ || fa fa-calendar
+  #sitemap: /sitemap.xml || fa fa-sitemap
+  #commonweal: /404/ || fa fa-heartbeat
+  wiki: https://kiwi0093.github.io/Wiki-site/ || fa fa-sitemap
+```
 
 ## 參考資料
 

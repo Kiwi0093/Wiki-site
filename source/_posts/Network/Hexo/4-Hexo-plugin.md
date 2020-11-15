@@ -21,7 +21,11 @@ npm update
 ## 本站有安裝的Plugin
 
 * [hexo-deployer-git](https://github.com/hexojs/hexo-deployer-git)
+
 * [hexo-renderer-markdown-it-plus](https://github.com/CHENXCHEN/hexo-renderer-markdown-it-plus)
+
+* [hexo-html-minifier](https://github.com/hexojs/hexo-html-minifier)
+
 
 ## 相關設定
 
@@ -49,3 +53,18 @@ deploy:
   branch: <branch_name>
 ```
 
+#### Hexo-html-minifier
+
+```c
+html_minifier:  
+  collapseBooleanAttributes: true
+  collapseWhitespace: true
+  # Ignore '<!-- more -->' https://hexo.io/docs/tag-plugins#Post-Excerpt
+  ignoreCustomComments: [ !!js/regexp /^\s*more/]
+  removeComments: true
+  removeEmptyAttributes: true
+  removeScriptTypeAttributes: true
+  removeStyleLinkTypeAttributes: true
+  minifyJS: true
+  minifyCSS: true
+```

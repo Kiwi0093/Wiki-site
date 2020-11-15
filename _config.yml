@@ -121,17 +121,6 @@ html_minifier:
   minifyJS: true
   minifyCSS: true
 
-uglify:
-  mangle: true
-  output:
-  compress:
-  exclude:
-    - *.min.js
-
-clean_css:
-  exclude: 
-    - *.min.css
-
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/

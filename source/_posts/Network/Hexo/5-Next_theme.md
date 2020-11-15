@@ -36,7 +36,11 @@ tags: [Network,Server,Git,Blog]
 
 ### 設定
 
-若使用`npm`安裝的next目前沒看到在哪裡變更設定,所以我都是用`git clone`的方式進行,相關的設定檔在`themes/next/_config.yml`內,詳細的說明可以參考[官方的文件說明](https://theme-next.js.org/docs/getting-started/configuration.html)
+###### #Theme Setting
+
+將Theme的`_config.yml`複製為`_config.[Theme_name].yml`
+
+詳細的說明可以參考[官方的文件說明](https://theme-next.js.org/docs/getting-started/configuration.html)
 
 基本上只需要修改下述幾個主要參數就可以了
 

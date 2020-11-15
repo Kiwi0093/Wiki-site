@@ -29,14 +29,14 @@ NC='\e[0m'
 #start ntp
 echo -e "${COLOR1}Starting NTP Service${NC}"
 timedatectl set-ntp true
-echo -e "${COLOR2}NTP Setup completed${NC}"
+echo -e "${COLOR2}NTP Setup Completed${NC}"
 
 #Modify Mirrorlist to setting country
 echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
 echo -n "${COLOR1}Please Enter which Country you like(ie. United_State or China)${NC}"
 read COUNTRY
 sed -i '/Score/{/$COUNTRY/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-echo -e "${COLOR2}Finished.${NC}"
+echo -e "${COLOR2}Completed${NC}"
 
 #Fdisk
 echo -e "${COLOR1}Partition your HDD please create 1 data as sda1 and 1 swap as sda2${NC}"

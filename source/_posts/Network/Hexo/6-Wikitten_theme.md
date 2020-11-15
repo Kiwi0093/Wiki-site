@@ -188,6 +188,32 @@ history_control: # make you wiki has history version control in page
 
 這部分可以讓Wiki的歷史版本直接跟github的版本控制連動
 
+### 變更顏色
+
+`themes/Wikitten/source/css/_variables.styl`
+
+```c
+// Colors
+color-default = #565a5f
+color-grey = #999
+color-border = #dfe1e2
+color-border-stretch = #c1cfdc
+color-link = #eb783b //#38b7ea
+color-background = #ebeef1
+color-meta-head = #7b848c
+color-sidebar-text = #777
+color-sidebar-text-dark = #333
+color-widget-background = #ddd
+color-widget-border = #ccc
+```
+
+個人會把Link的顏色從藍色`#38b7ea`變更為橘色`#eb783b`
+
+顏色的選擇可以使用google查詢任意一個顏色的HEX code,就會有google的小工具可以使用了
+
+![google_color](https://raw.githubusercontent.com/Kiwi0093/graph/master/img/google_color.PNG)
+
+
 ### 參考資料
 
 [A Learning Blog](http://www.lzszy.com/wiki/2018-12-16-Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E4%BD%BF%E7%94%A8Wikitten%E4%B8%BB%E9%A2%98/)

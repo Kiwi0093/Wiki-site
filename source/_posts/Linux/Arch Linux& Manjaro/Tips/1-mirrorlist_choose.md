@@ -1,9 +1,7 @@
 ---
-title: Manjaro Tips
-tags: [Linux, Arch,]
+title: Mirrorlist選用
+tags: [Linux, Arch,Manjaro]
 ---
-
-## Mirrorlist選用
 
 ##### 參考網頁
 

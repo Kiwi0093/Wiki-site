@@ -166,7 +166,7 @@ ${變數}
 使用`read`指令讀取key入的內容為變數內容如
 
 ```c
-echo -e "please input a var for use"
+echo -n "please input a var for use"
 read var
 echo -e "${var}"
 ```

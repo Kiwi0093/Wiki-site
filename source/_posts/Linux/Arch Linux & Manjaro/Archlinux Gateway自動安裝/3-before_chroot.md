@@ -35,7 +35,7 @@ echo -e "${COLOR2}NTP Setup Completed${NC}"
 echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
 echo -n "${COLOR1}Please Enter which Country you like(ie. United_State or China)${NC}"
 read COUNTRY
-sed -i '/Score/{/$COUNTRY/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
+sed -i '/Score/{/${COUNTRY}/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
 echo -e "${COLOR2}Completed${NC}"
 
 #Fdisk

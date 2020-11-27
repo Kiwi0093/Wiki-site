@@ -1,5 +1,5 @@
 ---
-title: Script After Chroot - Normal installation
+title: Script After Chroot - Kiwi Private Gateway installation
 date: 2020-11-15
 tags: [Linux,Arch,Server]
 ---

@@ -6,7 +6,7 @@ tags: [Linux,Arch,Server]
 
 ## 前提
 
-+ 自己要用的連結為: https://github.com/Kiwi0093/script/blob/master/
++ 自己要用的連結為: https://raw.githubusercontent.com/Kiwi0093/script/master/arch-b.sh
 
 + 使用結果
   - HDD僅會分割成兩部分
@@ -59,7 +59,7 @@ echo -e "${COLOR2}Completed${NC}"
 
 #Install
 echo "${COLOR1}Starting Install Archlinux into /mnt${NC}"
-pacstrap /mnt base vim zsh curl
+pacstrap /mnt base vim zsh curl mkinitcpio
 echo -e "${COLOR2}Completed${NC}"
 
 #fstab

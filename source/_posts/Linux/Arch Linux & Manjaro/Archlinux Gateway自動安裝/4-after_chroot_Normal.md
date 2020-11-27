@@ -1,31 +1,29 @@
 ---
-title: Script After Chroot - Normal installation
-date: 2020-11-15
+title: Script After Chroot - Normal Arch linux installation
+date: 2020-11-25
 tags: [Linux,Arch,Server]
 ---
 
 ## 前提
 
-+ 自己要用的連結為: https://github.com/Kiwi0093/script/blob/master/
-+ 使用結果
-  - 這是一台Gateway,安裝好之後會開啟Nat功能
-  - 預設會使用iptable做firewall
-  - 輸入v2ray config file網址時須包含完整http(s)://
-  - 預設安裝
-    * Intel Microcode for Intel CPU
-    * grub bootloader for MBR
-    * screen for console multi terminal
-    * dnsutils for nslookup ...etc tools
-    * open-vm-tools for VMware guest tools
-    * vim for editor
-    * V2ray for PVN
-    * wget for fetch files
+* 一般的Archlinux server安裝,script連結:https://github.com/Kiwi0093/script/blob/master/arch-a-s.sh
 
+* 使用結果
+  + 這是單NIC的機器適用
+  + 自己使用的條件基本上都會塞到Gateway後面用Port Mapping所以不需要firewall
+  + 預設安裝
+    - Intel Microcode for Intel CPU
+    - grub bootloader for MBR
+    - screen for console multi terminal
+    - dnsutils for nslookup ...etc tools
+    - open-vm-tools for VMware guest tools
+    - vim for editor
+    - V2ray for PVN
+    - wget for fetch files
 
+## script 內容
 
-## Script內容
-
-```c
+```bash
 #------------------------------------------------------------------------------
 #(所有動作都是在change root內完成的)
 #------------------------------------------------------------------------------
@@ -44,7 +42,7 @@ echo -e "${COLOR2}Completed${NC}"
 echo -e "${COLOR1}Setting local file${NC}"
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "zh_TW.UTF-8 UTF-8" >> /etc/locale.gen
-echo -e "#{COLOR1}Generate locale.conf${NC}"
+echo -e "${COLOR1}Generate locale.conf${NC}"
 locale-gen
 echo -e "${COLOR1}Setting locale.conf${NC}"
 echo LANG=en_US.UTF-8 > /etc/locale.conf
@@ -58,52 +56,60 @@ hwclock --systohc --utc
 echo -e "${COLOR2}Completed${NC}"
 
 #Network
-echo -e "${COLOR1}Setting 'Gateway' as hostname${NC}"
-echo Gateway > /etc/hostname
-echo "127.0.0.1 localhost Gateway" >> /etc/hosts
+echo -n "${COLOR1}Please enter your hostname${NC}"
+read HOSTNAME
+echo {HOSTNAME} > /etc/hostname
+echo "127.0.0.1 localhost ${HOSTNAME}" >> /etc/hosts
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
-echo -n "${COLOR1}Please Enter your MAC address for your outside NIC${NC}"
+echo -n "${COLOR1}Please Enter your MAC address for your NIC${NC}"
 read OUTSIDE
 echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${OUTSIDE}", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
-echo -n "${COLOR1}Please Enter your MAC address for your inside NIC${NC}"
-read INSIDE
-echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${INSIDE}", NAME="INT0"' >> /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
 
-echo -e "${COLOR1}Define your PPPOE Setting${NC}"
-echo "Description='EXT0 PPPOE SETTING'" > /etc/netctl/EXT0.service
-echo "Interface=EXT0" >> /etc/netctl/EXT0.service
-echo "Connection=pppoe" >> /etc/netctl/EXT0.service
-echo -n "${COLOR1}Please Enter your PPPOE acount:${NC}"
-read ISP
-echo "User='${ISP}'" >> /etc/netctl/EXT0.service
-echo -n "${COLOR1}Please Enter your PPPOE password${NC}"
-read ISPPW
-echo "Password='${ISPPW}'" >> /etc/netctl/EXT0.service
-echo "ConnectionMode='persist'" >> /etc/netctl/EXT0.service
-echo "UsePeerDNS=false" >> /etc/netctl/EXT0.service
-echo -e "${COLOR2}Enable EXT0{NC}"
-netctl enable EXT0.service
-echo -e "${COLOR2}EXT0 Setup Completed${NC}"
+echo -e "${COLOR1}Define your IP for EXT0${NC}"
+mkdir /etc/conf.d
+echo n "${COLOR1}Please input your IP address${NC}"
+read EXT_IP
+echo "address=${EXT_IP}" > /etc/conf.d/network@EXT0
+echo n "${COLOR1}Please input your mask(ie, 24)${NC}"
+read EXT_MASK
+echo "netmask=${EXT_MASK}" >> /etc/conf.d/network@EXT0
+echo n "${COLOR1}Please input your broadcast(ie, 192.168.0.255)${NC}"
+read EXT_CAST
+echo "broadcast=${EXT_CAST}" >> /etc/conf.d/network@EXT0
+echo n "${COLOR1}Please input your Gateway IP${NC}"
+read EXT_GATE
+echo "gateway=${EXT_GATE}" >> /etc/conf.d/network@EXT0
 
-echo -e "${COLOR1}Define your Private Gateway IP for INT0${NC}"
-echo "Description='INT0 IP SETTING'" > /etc/netctl/INT0.service
-echo "Interface=INT0" >> /etc/netctl/INT0.service
-echo "Connection=ethernet" >> /etc/netctl/INT0.service
-echo "IP=static" >> /etc/netctl/INT0.service
-echo -n "${COLOR1}Please Enter your Gateway IP address:${NC}"
-read GATEWAYIP
-echo "Address=('${GATEWAYIP}/24')" >> /etc/netctl/INT0.service
-echo -e "${COLOR2}Enable INT0${NC}"
-netctl enable INT0.service
+echo -e "${COLOR1}Establish Systemd file${NC}"
+echo "[Unit]" > /etc/systemd/system/network@.service
+echo "Description=Network connectivity (%i)" >> /etc/systemd/system/network@.service
+echo "Wants=network.target" >> /etc/systemd/system/network@.service
+echo "Before=network.target" >> /etc/systemd/system/network@.service
+echo "BindsTo=sys-subsystem-net-devices-%i.device" >> /etc/systemd/system/network@.service
+echo "After=sys-subsystem-net-devices-%i.device" >> /etc/systemd/system/network@.service
+echo " " >> /etc/systemd/system/network@.service
+echo "[Service]" >> /etc/systemd/system/network@.service
+echo "Type=oneshot" >> /etc/systemd/system/network@.service
+echo "RemainAfterExit=yes" >> /etc/systemd/system/network@.service
+echo "EnvironmentFile=/etc/conf.d/network@%i" >> /etc/systemd/system/network@.service
+echo " " >> /etc/systemd/system/network@.service
+echo "ExecStart=/usr/bin/ip link set dev %i up" >> /etc/systemd/system/network@.service
+echo "ExecStart=/usr/bin/ip addr add ${address}/${netmask} broadcast ${broadcast} dev %i" >> /etc/systemd/system/network@.service
+echo "ExecStart=/usr/bin/sh -c 'test -n ${gateway} && /usr/bin/ip route add default via ${gateway}'" >> /etc/systemd/system/network@.service
+echo " " >> /etc/systemd/system/network@.service
+echo "ExecStop=/usr/bin/ip addr flush dev %i" >> /etc/systemd/system/network@.service
+echo "ExecStop=/usr/bin/ip link set dev %i down" >> /etc/systemd/system/network@.service
+echo " " >> /etc/systemd/system/network@.service
+echo "[Install]" >> /etc/systemd/system/network@.service
+echo "WantedBy=multi-user.target" >> /etc/systemd/system/network@.service
+
+systemctl enable network@EXT0.service
+systemctl start network@EXT0.service
+
 echo -e "${COLOR2}INT0 Setup Completed${NC}"
-
-#Initramfs
-echo -e "${COLOR1}Initramfs your Linux${NC}"
-mkinitcpio -p linux
-echo -e "${COLOR2}Completed${NC}"
 
 #Root Password
 echo -e "${COLOR1}Set your root password${NC}"
@@ -134,57 +140,6 @@ echo -e "${COLOR2}Completed${NC}"
 echo -e "${COLOR1}Install grub Boot Loader into /dev/sda1${NC}"
 grub-install --target=i386-pc /dev/sda1
 grub-mkconfig -o /boot/grub/grub.cfg
-echo -e "${COLOR2}Completed${NC}"
-
-#V2ray config.json get
-echo -e "${COLOR}Fetch V2ray config.json and replace${NC}"
-echo -n "${COLOR}Please Enter where you put the file:${NC}"
-read link
-echo -n "${COLOR}Please Enter the file name:${NC}"
-read conffile
-wget ${Link}/${conffile}
-mv -f  ./${conffile} /etc/v2ray/config.json
-echo -e "${COLOR}Finished.${NC}"
-
-#Set Nat
-echo -e "${COLOR1}Open package fowrading${NC}"
-echo "net.ipv4.ip_forward=1" > /etc/sysctl/30-ipforward.conf
-echo -e "${COLOR2}Completed${NC}"
-
-#Iptable firewall setup
-echo -e "${COLOR1}Create Iptable start script${NC}"
-echo -n "${COLOR1}Please Enter your V2ray Server IP:${NC}"
-read VPSIP
-echo "#Re-direction TCP" > /etc/iptables/iptable.sh
-echo "iptables -t nat -N V2RAY" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 0.0.0.0/8 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 10.0.0.0/8 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 127.0.0.0/8 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 169.254.0.0/16 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 172.16.0.0/12-j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 192.168.0.0/16 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 224.0.0.0/4 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d 240.0.0.0/4 -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -d ${VPSIP} -j RETURN" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports 12345" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A PREROUTING -p tcp -j V2RAY" >> /etc/iptables/iptable.sh
-echo " " >> /etc/iptables/iptable.sh
-echo "#Natd" >> /etc/iptables/iptable.sh
-echo "iptables -t nat -A POSTROUTING -s 192.168/16 -j MASQUERADE" >> /etc/iptables/iptable.sh
-chmod 750 /etc/iptables/iptable.sh
-echo -e "${COLOR2}Completed${NC}"
-
-#Systemd Service setup    
-echo -e "${COLOR1}Create Systemd Service${NC}"
-echo "[Unit] > /etc/systemd/system/iptables.service
-echo "Description=iptables rules for V2Ray Daemon >> /etc/systemd/system/iptables.service
-echo " " >> /etc/systemd/system/iptables.service
-echo "[Service]" >> /etc/systemd/system/iptables.service
-echo "ExecStart=/bin/sh /etc/iptables/iptable.sh" >> /etc/systemd/system/iptables.service
-echo " " >> /etc/systemd/system/iptables.service
-echo "[Install]" >> /etc/systemd/system/iptables.service
-echo "WantedBy=multi-user.target" >> /etc/systemd/system/iptables.service
-systemctl enable iptables.service
 echo -e "${COLOR2}Completed${NC}"
 
 #Finished install

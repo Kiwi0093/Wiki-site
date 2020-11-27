@@ -241,20 +241,35 @@ sudo chmod +x /etc/letsencrypt/renewal-hooks/deploy/v2ray.sh
 
 ### BBR
 
-Archlinux
+* Archlinux
 
-Debian
+  [Archlinux開啟BBR](https://marskid.net/2017/12/03/arch-linux-open-google-bbr/)
 
-Debian9/10有內建BBR只要打開就可以了
+  ```bash
+  echo "tcp_bbr" > /etc/modules-load.d/80-bbr.conf
+  echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.d/80-bbr.conf
+  echo "net.core.default_qdisc=fq" >> /etc/sysctl.d/80-bbr.conf
+  ```
 
-```bash
-echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-```
+  接著
 
-接著
+  ```bash
+  sysctl -p
+  ```
 
-```bash
-sysctl -p
-```
+* Debian
 
+  Debian9/10有內建BBR只要打開就可以了
+
+  ```bash
+  echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+  echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+  ```
+
+  接著
+
+  ```bash
+  sysctl -p
+  ```
+
+  

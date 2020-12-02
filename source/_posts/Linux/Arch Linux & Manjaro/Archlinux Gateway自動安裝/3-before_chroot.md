@@ -13,10 +13,11 @@ tags: [Linux,Arch,Server]
     * /dev/sda1為主要資料
     * /dev/sda2為Swap
   - 會copy Archlinux安裝ISO內的zsh設定檔到新系統
+  - 會使用netctl作為網路設定的工具
 
 ## Script內容
 
-```c
+```bash
 #------------------------------------------------------------------------------
 #(從Iso boot後直到完成change root內所有安裝/調整動作)
 #------------------------------------------------------------------------------
@@ -36,6 +37,7 @@ echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
 echo -n "${COLOR1}Please Enter which Country you like(ie. United_State or China)${NC}"
 read COUNTRY
 sed -i '/Score/{/${COUNTRY}/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
+pacman -Syyu
 echo -e "${COLOR2}Completed${NC}"
 
 #Fdisk
@@ -59,7 +61,7 @@ echo -e "${COLOR2}Completed${NC}"
 
 #Install
 echo "${COLOR1}Starting Install Archlinux into /mnt${NC}"
-pacstrap /mnt base vim zsh curl mkinitcpio
+pacstrap /mnt base vim zsh curl mkinitcpio netctl
 echo -e "${COLOR2}Completed${NC}"
 
 #fstab

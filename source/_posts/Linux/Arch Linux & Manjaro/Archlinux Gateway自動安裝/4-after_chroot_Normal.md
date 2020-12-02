@@ -14,6 +14,7 @@ tags: [Linux,Arch,Server]
   + 預設安裝
     - Intel Microcode for Intel CPU
     - grub bootloader for MBR
+    - linux kernel
     - screen for console multi terminal
     - dnsutils for nslookup ...etc tools
     - open-vm-tools for VMware guest tools
@@ -34,7 +35,7 @@ NC='\e[0m'
 
 #update package
 echo -e "${COLOR1}Start Pacman Update${NC}"
-pacman -Syuu
+pacman -Syyuu
 echo -e "${COLOR2}Completed${NC}"
 
 #locale-gen to add en_US & zh_TW
@@ -64,50 +65,26 @@ echo -e "${COLOR2}Completed${NC}"
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
 echo -n "${COLOR1}Please Enter your MAC address for your NIC${NC}"
 read OUTSIDE
-echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${OUTSIDE}", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
+echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${OUTSIDE}'", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
 
-echo -e "${COLOR1}Define your IP for EXT0${NC}"
-mkdir /etc/conf.d
-echo n "${COLOR1}Please input your IP address${NC}"
+echo -e "${COLOR1}Define your IP for EXT0:${NC}"
+echo "Description='EXT0 IP SETTING'" > /etc/netctl/EXT0.service
+echo "Interface=EXT0" >> /etc/netctl/EXT0.service
+echo "Connection=ethernet" >> /etc/netctl/EXT0.service
+echo "IP=static" >> /etc/netctl/EXT0.service
+echo -n "${COLOR1}Please Enter your EXT0 IP address:${NC}"
 read EXT_IP
-echo "address=${EXT_IP}" > /etc/conf.d/network@EXT0
-echo n "${COLOR1}Please input your mask(ie, 24)${NC}"
-read EXT_MASK
-echo "netmask=${EXT_MASK}" >> /etc/conf.d/network@EXT0
-echo n "${COLOR1}Please input your broadcast(ie, 192.168.0.255)${NC}"
-read EXT_CAST
-echo "broadcast=${EXT_CAST}" >> /etc/conf.d/network@EXT0
-echo n "${COLOR1}Please input your Gateway IP${NC}"
-read EXT_GATE
-echo "gateway=${EXT_GATE}" >> /etc/conf.d/network@EXT0
-
-echo -e "${COLOR1}Establish Systemd file${NC}"
-echo "[Unit]" > /etc/systemd/system/network@.service
-echo "Description=Network connectivity (%i)" >> /etc/systemd/system/network@.service
-echo "Wants=network.target" >> /etc/systemd/system/network@.service
-echo "Before=network.target" >> /etc/systemd/system/network@.service
-echo "BindsTo=sys-subsystem-net-devices-%i.device" >> /etc/systemd/system/network@.service
-echo "After=sys-subsystem-net-devices-%i.device" >> /etc/systemd/system/network@.service
-echo " " >> /etc/systemd/system/network@.service
-echo "[Service]" >> /etc/systemd/system/network@.service
-echo "Type=oneshot" >> /etc/systemd/system/network@.service
-echo "RemainAfterExit=yes" >> /etc/systemd/system/network@.service
-echo "EnvironmentFile=/etc/conf.d/network@%i" >> /etc/systemd/system/network@.service
-echo " " >> /etc/systemd/system/network@.service
-echo "ExecStart=/usr/bin/ip link set dev %i up" >> /etc/systemd/system/network@.service
-echo "ExecStart=/usr/bin/ip addr add ${address}/${netmask} broadcast ${broadcast} dev %i" >> /etc/systemd/system/network@.service
-echo "ExecStart=/usr/bin/sh -c 'test -n ${gateway} && /usr/bin/ip route add default via ${gateway}'" >> /etc/systemd/system/network@.service
-echo " " >> /etc/systemd/system/network@.service
-echo "ExecStop=/usr/bin/ip addr flush dev %i" >> /etc/systemd/system/network@.service
-echo "ExecStop=/usr/bin/ip link set dev %i down" >> /etc/systemd/system/network@.service
-echo " " >> /etc/systemd/system/network@.service
-echo "[Install]" >> /etc/systemd/system/network@.service
-echo "WantedBy=multi-user.target" >> /etc/systemd/system/network@.service
-
-systemctl enable network@EXT0.service
-
-echo -e "${COLOR2}INT0 Setup Completed${NC}"
+echo "Address=('${EXT_IP}/24')" >> /etc/netctl/EXT0.service
+echo -n "${COLOR1}Please input your EXT Gateway IP:${NC}"
+read GATE_IP
+echo "Gateway='${GATE_IP}'"
+echo -n "${COLOR1}Please Input your DNS IP:${NC}"
+read DNS_IP
+echo "DNS=('${DNS_IP}')"
+echo -e "${COLOR2}Enable INT0${NC}"
+netctl enable INT0.service
+echo -e "${COLOR2}Finished.${NC}"
 
 #Root Password
 echo -e "${COLOR1}Set your root password${NC}"
@@ -130,8 +107,8 @@ echo -e "${COLOR2}Completed${NC}"
 
 #install Tools
 echo -e "${COLOR1}Install Packages${NC}"
-echo -e "${COLOR1}Microcode/grub/dnsutils/open-vm-tools/vim/v2ray/screen${NC}"
-pacman -Sy intel-ucode grub dnsutils open-vm-tools vim v2ray screen
+echo -e "${COLOR1}Microcode/grub/linux Kernel/dnsutils/open-vm-tools/vim/v2ray/screen${NC}"
+pacman -Sy intel-ucode grub linux dnsutils open-vm-tools vim v2ray screen
 echo -e "${COLOR2}Completed${NC}"
 
 #install Bootloader

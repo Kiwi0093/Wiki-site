@@ -14,6 +14,7 @@ tags: [Linux,Arch,Server]
   - 預設安裝
     * Intel Microcode for Intel CPU
     * grub bootloader for MBR
+    * linux kernel
     * screen for console multi terminal
     * dnsutils for nslookup ...etc tools
     * open-vm-tools for VMware guest tools
@@ -25,7 +26,7 @@ tags: [Linux,Arch,Server]
 
 ## Script內容
 
-```c
+```bash
 #------------------------------------------------------------------------------
 #(所有動作都是在change root內完成的)
 #------------------------------------------------------------------------------
@@ -37,14 +38,14 @@ NC='\e[0m'
 
 #update package
 echo -e "${COLOR1}Start Pacman Update${NC}"
-pacman -Syuu
+pacman -Syyu
 echo -e "${COLOR2}Completed${NC}"
 
 #locale-gen to add en_US & zh_TW
 echo -e "${COLOR1}Setting local file${NC}"
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "zh_TW.UTF-8 UTF-8" >> /etc/locale.gen
-echo -e "#{COLOR1}Generate locale.conf${NC}"
+echo -e "${COLOR1}Generate locale.conf${NC}"
 locale-gen
 echo -e "${COLOR1}Setting locale.conf${NC}"
 echo LANG=en_US.UTF-8 > /etc/locale.conf
@@ -58,18 +59,19 @@ hwclock --systohc --utc
 echo -e "${COLOR2}Completed${NC}"
 
 #Network
-echo -e "${COLOR1}Setting 'Gateway' as hostname${NC}"
-echo Gateway > /etc/hostname
-echo "127.0.0.1 localhost Gateway" >> /etc/hosts
+echo -n "${COLOR1}Please enter your hostname${NC}"
+read HOSTNAME
+echo {HOSTNAME} > /etc/hostname
+echo "127.0.0.1 localhost ${HOSTNAME}" >> /etc/hosts
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
 echo -n "${COLOR1}Please Enter your MAC address for your outside NIC${NC}"
 read OUTSIDE
-echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${OUTSIDE}", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
+echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${OUTSIDE}'", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
 echo -n "${COLOR1}Please Enter your MAC address for your inside NIC${NC}"
 read INSIDE
-echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${INSIDE}", NAME="INT0"' >> /etc/udev/rules.d/10-network.rules
+echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${INSIDE}'", NAME="INT0"' >> /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your PPPOE Setting${NC}"
@@ -100,11 +102,6 @@ echo -e "${COLOR2}Enable INT0${NC}"
 netctl enable INT0.service
 echo -e "${COLOR2}INT0 Setup Completed${NC}"
 
-#Initramfs
-echo -e "${COLOR1}Initramfs your Linux${NC}"
-mkinitcpio -p linux
-echo -e "${COLOR2}Completed${NC}"
-
 #Root Password
 echo -e "${COLOR1}Set your root password${NC}"
 passwd
@@ -126,8 +123,8 @@ echo -e "${COLOR2}Completed${NC}"
 
 #install Tools
 echo -e "${COLOR1}Install Packages${NC}"
-echo -e "${COLOR1}Microcode/grub/dnsutils/open-vm-tools/vim/v2ray/screen${NC}"
-pacman -Sy intel-ucode grub dnsutils open-vm-tools vim v2ray screen wget
+echo -e "${COLOR1}Microcode/grub/linux/dnsutils/open-vm-tools/vim/v2ray/screen${NC}"
+pacman -Sy intel-ucode grub linunx dnsutils open-vm-tools vim v2ray screen wget
 echo -e "${COLOR2}Completed${NC}"
 
 #install Bootloader

@@ -107,7 +107,6 @@ echo "[Install]" >> /etc/systemd/system/network@.service
 echo "WantedBy=multi-user.target" >> /etc/systemd/system/network@.service
 
 systemctl enable network@EXT0.service
-systemctl start network@EXT0.service
 
 echo -e "${COLOR2}INT0 Setup Completed${NC}"
 
@@ -133,7 +132,7 @@ echo -e "${COLOR2}Completed${NC}"
 #install Tools
 echo -e "${COLOR1}Install Packages${NC}"
 echo -e "${COLOR1}Microcode/grub/dnsutils/open-vm-tools/vim/v2ray/screen${NC}"
-pacman -Sy intel-ucode grub dnsutils open-vm-tools vim v2ray screen wget
+pacman -Sy intel-ucode grub dnsutils open-vm-tools vim v2ray screen
 echo -e "${COLOR2}Completed${NC}"
 
 #install Bootloader

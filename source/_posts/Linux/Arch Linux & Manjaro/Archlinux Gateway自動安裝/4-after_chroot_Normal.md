@@ -137,8 +137,8 @@ pacman -Sy intel-ucode grub dnsutils open-vm-tools vim v2ray screen wget
 echo -e "${COLOR2}Completed${NC}"
 
 #install Bootloader
-echo -e "${COLOR1}Install grub Boot Loader into /dev/sda1${NC}"
-grub-install --target=i386-pc /dev/sda1
+echo -e "${COLOR1}Install grub Boot Loader into /dev/sda${NC}"
+grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 echo -e "${COLOR2}Completed${NC}"
 

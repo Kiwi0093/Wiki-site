@@ -19,7 +19,6 @@ tags: [Linux,Arch,Server]
     - open-vm-tools for VMware guest tools
     - vim for editor
     - V2ray for PVN
-    - wget for fetch files
 
 ## script 內容
 

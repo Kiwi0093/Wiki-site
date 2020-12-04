@@ -32,22 +32,25 @@ NC='\e[0m'
 
 ```bash
 #change Timezone to CTS(Taipei)
-echo -e "${COLOR1}請選擇你想要設定的時區\n1)台北\n2)上海\n*)不用管時間隨便\n${NC}"
-while:
+echo -e "${COLOR1}Please select your time zone\n1)Taipei\n2)Shanghai\n*)Whatever..I don't care\n${NC}"
+while :
 do
 	read ZONE
 	case $ZONE in
 		1)
+			echo -e "${COLOR1}Set Time Zone to Asia/Taipei${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 			hwclock --systohc --utc
 			exit
 			;;
 		2)
+			echo -e "${COLOR1}Set Time Zone to Asia/Shanghai${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 			hwclock --systohc --utc
 			exit
 			;;
 		*)
+			echo -e "${COLOR1}Nobody cares the local time!!${NC}"
 			hwclock --systohc --utc
 			exit
 			;;
@@ -59,15 +62,15 @@ echo -e "${COLOR2}Completed${NC}"
 #### 網路設定
 
 ```bash
-#Network
-echo -n "${COLOR1}請輸入你的hostname${NC}"
+#Hostname
+echo -e "${COLOR1}Please input your hostname\n${NC}"
 read HOSTNAME
 echo ${HOSTNAME} > /etc/hostname
 echo "127.0.0.1 localhost ${HOSTNAME}" >> /etc/hosts
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
-echo -n "${COLOR1}請輸入你的MAC Address:\n${NC}"
+echo -e "${COLOR1}Please input your MAC Address:\n${NC}"
 read OUTSIDE
 echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${OUTSIDE}'", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
@@ -77,13 +80,13 @@ echo "Description='EXT0 IP SETTING'" > /etc/netctl/EXT0.service
 echo "Interface=EXT0" >> /etc/netctl/EXT0.service
 echo "Connection=ethernet" >> /etc/netctl/EXT0.service
 echo "IP=static" >> /etc/netctl/EXT0.service
-echo -n "${COLOR1}請輸入你的IP地址:\n${NC}"
+echo -n "${COLOR1}Please input your IP address:\n${NC}"
 read EXT_IP
 echo "Address=('${EXT_IP}/24')" >> /etc/netctl/EXT0.service
-echo -n "${COLOR1}請輸入你的Gateway的IP地址:\n${NC}"
+echo -n "${COLOR1}Please input your Gateway IP address:\n${NC}"
 read GATE_IP
 echo "Gateway='${GATE_IP}'"
-echo -n "${COLOR1}請輸入你的DNS的IP:\n${NC}"
+echo -n "${COLOR1}Please input your DNS IP address:\n${NC}"
 read DNS_IP
 echo "DNS=('${DNS_IP}')"
 echo -e "${COLOR2}Enable EXT0${NC}"
@@ -98,7 +101,7 @@ echo -e "${COLOR2}Finished.${NC}"
 
 ```bash
 #Root Password
-echo -e "${COLOR1}設定你的root密碼${NC}"
+echo -e "${COLOR1}Set your root password${NC}"
 passwd
 chsh -s /bin/zsh
 echo -e "${COLOR2}Completed${NC}"
@@ -162,22 +165,25 @@ COLOR2='\e[32m'
 NC='\e[0m'
 
 #change Timezone to CTS(Taipei)
-echo -e "${COLOR1}請選擇你想要設定的時區\n1)台北\n2)上海\n*)不用管時間隨便\n${NC}"
-while:
+echo -e "${COLOR1}Please select your time zone\n1)Taipei\n2)Shanghai\n*)Whatever..I don't care\n${NC}"
+while :
 do
 	read ZONE
 	case $ZONE in
 		1)
+			echo -e "${COLOR1}Set Time Zone to Asia/Taipei${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 			hwclock --systohc --utc
 			exit
 			;;
 		2)
+			echo -e "${COLOR1}Set Time Zone to Asia/Shanghai${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 			hwclock --systohc --utc
 			exit
 			;;
 		*)
+			echo -e "${COLOR1}Nobody cares the local time!!${NC}"
 			hwclock --systohc --utc
 			exit
 			;;
@@ -185,15 +191,15 @@ do
 done
 echo -e "${COLOR2}Completed${NC}"
 
-#Network
-echo -n "${COLOR1}請輸入你的hostname${NC}"
+#Hostname
+echo -e "${COLOR1}Please input your hostname\n${NC}"
 read HOSTNAME
 echo ${HOSTNAME} > /etc/hostname
 echo "127.0.0.1 localhost ${HOSTNAME}" >> /etc/hosts
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
-echo -n "${COLOR1}請輸入你的MAC Address:\n${NC}"
+echo -e "${COLOR1}Please input your MAC Address:\n${NC}"
 read OUTSIDE
 echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${OUTSIDE}'", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
@@ -203,13 +209,13 @@ echo "Description='EXT0 IP SETTING'" > /etc/netctl/EXT0.service
 echo "Interface=EXT0" >> /etc/netctl/EXT0.service
 echo "Connection=ethernet" >> /etc/netctl/EXT0.service
 echo "IP=static" >> /etc/netctl/EXT0.service
-echo -n "${COLOR1}請輸入你的IP地址:\n${NC}"
+echo -n "${COLOR1}Please input your IP address:\n${NC}"
 read EXT_IP
 echo "Address=('${EXT_IP}/24')" >> /etc/netctl/EXT0.service
-echo -n "${COLOR1}請輸入你的Gateway的IP地址:\n${NC}"
+echo -n "${COLOR1}Please input your Gateway IP address:\n${NC}"
 read GATE_IP
 echo "Gateway='${GATE_IP}'"
-echo -n "${COLOR1}請輸入你的DNS的IP:\n${NC}"
+echo -n "${COLOR1}Please input your DNS IP address:\n${NC}"
 read DNS_IP
 echo "DNS=('${DNS_IP}')"
 echo -e "${COLOR2}Enable EXT0${NC}"
@@ -217,7 +223,7 @@ netctl enable EXT0.service
 echo -e "${COLOR2}Finished.${NC}"
 
 #Root Password
-echo -e "${COLOR1}設定你的root密碼${NC}"
+echo -e "${COLOR1}Set your root password${NC}"
 passwd
 chsh -s /bin/zsh
 echo -e "${COLOR2}Completed${NC}"

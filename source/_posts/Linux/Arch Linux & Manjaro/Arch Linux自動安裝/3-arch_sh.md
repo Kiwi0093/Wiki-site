@@ -44,25 +44,23 @@ echo -e "${COLOR2}NTP Setup Completed${NC}"
 ```bash
 #Modify Mirrorlist to setting country
 echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
-echo -n "${COLOR1}請選擇你想要設定的mirror list國家\nC)China\nT)Taiwan\n*)隨便不用改\n${NC}"
-while:
+echo -n "${COLOR1}Please Select the country you want to set for mirror list\nC)China\nT)Taiwan\n*)whatever..I don't care\n${NC}"
+while :
 do
 	read COUNTRY
 	case $ COUNTRY in
 		C)
-			echo -e "${COLOR2}設定為China${NC}"
+			echo -e "${COLOR2}Set China${NC}"
 			sed -i '/Score/{/China/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			pacman -Syyu
 			exit
 			;;
 		T)
-			echo -e "${COLOR2}設定為Taiwan${NC}"
+			echo -e "${COLOR2}SetTaiwan${NC}"
 			sed -i '/Score/{/Taiwan/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			pacman -Syyu
 			exit
 			;;
 		*)
-			echo -e "${COLOR2}保持原設定不變更${NC}"
+			echo -e "${COLOR2}Keep original Setting${NC}"
 			exit
 			;;
 	esac
@@ -108,38 +106,44 @@ script中採用最常見但是效率不是最好的ext4格式作為這個archlin
 ```bash
 #Install
 echo -e "${COLOR1}Starting Install Archlinux into /mnt${NC}"
-echo -e "${COLOR1}請選擇你的CPU是:\n1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)就隨便裝個普通的Linux Kernel就好了\n${NC}"
-while:
+echo -e "${COLOR1}Please select your CPU vendor and Linux Kernel you want:\n1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)Whatever, Normal Linux Kernel is good enough to me\n${NC}"
+while :
 do
 	read CPU
 	case $CPU in
 	1)
-		echo -e "${COLOR2}基本安裝Linux Kernel＋Intel相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	2)
-		echo -e "${COLOR2}基本安裝Linux-LTS Kernel＋Intel相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	3)
-		echo -e "${COLOR2}基本安裝Linux Kernel＋Amd相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	4)
-		echo -e "${COLOR2}基本安裝Linux-LTS Kernel＋Amd相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	5)
-		echo -e "${COLOR2}基本安裝Linux-LTS Kernel安裝中${NC}"
+		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
 		exit
 		;;
 	*)
-		echo -e "${COLOR2}基本安裝${NC}"
+		echo -e "${COLOR2}Linux Kernel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
 		exit
 		;;
@@ -179,38 +183,38 @@ echo -e "${COLOR2}Completed${NC}"
 #### 選擇fetch哪一個安裝script並且進入arch-root
 
 ```bash
-echo -n "${COLOR1}請選擇你想要安裝哪一種\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\ne)Kiwi的私人路由\n*)閃開讓專業的我自己來\n${NC}"
+echo -n "${COLOR1}Please select which type you want\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\ne)Kiwi's private router\n*)I'm the best! let me do by my own!!\n${NC}"
 while :
 do
 	read SCRIPT
 	case $SCRIPT in
 		a)
-			echo -e "${COLOR2}進入Simple Arch Linux安裝${NC}"
+			echo -e "${COLOR2}Simple Arch Linux${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/simple_arch.sh)
 			exit
 			;;
 		b)
-			echo -e "${COLOR2}進入Nextcloud Server安裝${NC}"
+			echo -e "${COLOR2}Nextcloud Server${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/nextc_arch.sh)
 			exit
 			;;
 		c)
-			echo -e "${COLOR2}進入V2Ray Server安裝${NC}"
+			echo -e "${COLOR2}V2Ray Server${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh)
 			exit
 			;;
 		d)
-			echo -e "${COLOR2}進入V2Ray Gateway安裝${NC}"
+			echo -e "${COLOR2}V2Ray Gateway${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate.sh)
 			exit
 			;;
 		e)
-			echo -e "${COLOR2}進入Kiwi私人路由安裝${NC}"
+			echo -e "${COLOR2}Kiwi's Private Router${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate_k.sh)
 			exit
 			;;
 		*)
-			echo -e "${COLOR2}高手,你自己上吧${NC}"
+			echo -e "${COLOR2}Yes! you're the chosen one!${NC}"
 			arch-root /mnt /bin/zsh
 			exit
 			;;
@@ -253,25 +257,23 @@ echo -e "${COLOR2}NTP Setup Completed${NC}"
 
 #Modify Mirrorlist to setting country
 echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
-echo -n "${COLOR1}請選擇你想要設定的mirror list國家\nC)China\nT)Taiwan\n*)隨便不用改\n${NC}"
-while:
+echo -n "${COLOR1}Please Select the country you want to set for mirror list\nC)China\nT)Taiwan\n*)whatever..I don't care\n${NC}"
+while :
 do
 	read COUNTRY
-	case $ COUNTRY in
+	case $COUNTRY in
 		C)
-			echo -e "${COLOR2}設定為China${NC}"
+			echo -e "${COLOR2}Set China${NC}"
 			sed -i '/Score/{/China/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			pacman -Syyu
 			exit
 			;;
 		T)
-			echo -e "${COLOR2}設定為Taiwan${NC}"
+			echo -e "${COLOR2}SetTaiwan${NC}"
 			sed -i '/Score/{/Taiwan/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			pacman -Syyu
 			exit
 			;;
 		*)
-			echo -e "${COLOR2}保持原設定不變更${NC}"
+			echo -e "${COLOR2}Keep original Setting${NC}"
 			exit
 			;;
 	esac
@@ -299,38 +301,44 @@ echo -e "${COLOR2}Completed${NC}"
 
 #Install
 echo -e "${COLOR1}Starting Install Archlinux into /mnt${NC}"
-echo -e "${COLOR1}請選擇你的CPU是:\n1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)就隨便裝個普通的Linux Kernel就好了\n${NC}"
-while:
+echo -e "${COLOR1}Please select your CPU vendor and Linux Kernel you want:\n1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)Whatever, Normal Linux Kernel is good enough to me\n${NC}"
+while :
 do
 	read CPU
 	case $CPU in
 	1)
-		echo -e "${COLOR2}基本安裝Linux Kernel＋Intel相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	2)
-		echo -e "${COLOR2}基本安裝Linux-LTS Kernel＋Intel相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	3)
-		echo -e "${COLOR2}基本安裝Linux Kernel＋Amd相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	4)
-		echo -e "${COLOR2}基本安裝Linux-LTS Kernel＋Amd相關組件安裝中${NC}"
+		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
 		exit
 		;;
 	5)
-		echo -e "${COLOR2}基本安裝Linux-LTS Kernel安裝中${NC}"
+		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
 		exit
 		;;
 	*)
-		echo -e "${COLOR2}基本安裝${NC}"
+		echo -e "${COLOR2}Linux Kernel${NC}"
+		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
 		exit
 		;;
@@ -348,38 +356,38 @@ echo "${COLOR1}Starting Copy ZSH setting file to new Archlinux${NC}"
 cp -Rv /etc/zsh /mnt/etc/
 echo -e "${COLOR2}Completed${NC}"
 
-echo -n "${COLOR1}請選擇你想要安裝哪一種\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\ne)Kiwi的私人路由\n*)閃開讓專業的我自己來\n${NC}"
+echo -n "${COLOR1}Please select which type you want\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\ne)Kiwi's private router\n*)I'm the best! let me do by my own!!\n${NC}"
 while :
 do
 	read SCRIPT
 	case $SCRIPT in
 		a)
-			echo -e "${COLOR2}進入Simple Arch Linux安裝${NC}"
+			echo -e "${COLOR2}Simple Arch Linux${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/simple_arch.sh)
 			exit
 			;;
 		b)
-			echo -e "${COLOR2}進入Nextcloud Server安裝${NC}"
+			echo -e "${COLOR2}Nextcloud Server${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/nextc_arch.sh)
 			exit
 			;;
 		c)
-			echo -e "${COLOR2}進入V2Ray Server安裝${NC}"
+			echo -e "${COLOR2}V2Ray Server${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh)
 			exit
 			;;
 		d)
-			echo -e "${COLOR2}進入V2Ray Gateway安裝${NC}"
+			echo -e "${COLOR2}V2Ray Gateway${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate.sh)
 			exit
 			;;
 		e)
-			echo -e "${COLOR2}進入Kiwi私人路由安裝${NC}"
+			echo -e "${COLOR2}Kiwi's Private Router${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate_k.sh)
 			exit
 			;;
 		*)
-			echo -e "${COLOR2}高手,你自己上吧${NC}"
+			echo -e "${COLOR2}Yes! you're the chosen one!${NC}"
 			arch-root /mnt /bin/zsh
 			exit
 			;;

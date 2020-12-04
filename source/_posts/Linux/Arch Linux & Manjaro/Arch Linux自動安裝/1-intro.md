@@ -1,0 +1,59 @@
+---
+title: 整合型Archlinux安裝Script - Before Start
+date: 2020-12-04
+tags: [Linux, Archlinux]
+---
+
+## 適用範圍
+
+這是一個用在**_VMware ESXi_**上的汎用型**Arch linux**安裝script,基本預設條件如下
+
+* Intel CPU
+* 1~2GB的RAM
+* 20GB以上的HDD空間
+
+這個版本會做以下可選項目
+
+* Simple Arch linux
+  - 基本型Arch Linux,只安裝基本的系統工具
+  - 單NIC with固定MAC Address & static IP
+  - Copy Live CD中的zsh設定
+* V2Ray Server
+  - Arch Linux with V2Ray without V2Ray 設定
+  - 單NIC with固定MAC Address & Static IP
+  - Copy Live CD中的zsh設定
+
+* V2Ray Client Gateway
+  - Arch Linux with V2Ray without V2Ray 設定
+  - 無ipatable設定
+  - 雙NIC with固定MAC Address
+  - 外網可選PPPOE或Static IP
+  - 內網為固定IP
+  - Copy Live CD中的zsh設定
+* V2Ray Client Gateway Kiwi private version
+  - Arch Linux with V2Ray with現有Kiwi的相關設定(加密,私人使用)
+  - 直接套用Kiwi現有的iptable(加密,私人使用)
+  - 雙NIC with固定MAC Address
+  - 外網可選PPPOE或Static IP
+  - 內網為固定IP
+  - Copy Live CD中的zsh設定
+* Nextcloud Server
+  - Arch Linux With Nextcloud from package
+  - 單NIC with固定MAC Address & Static IP
+  - Copy Live CD中的zsh設定
+
+## 使用方式
+
+用LiveCD開機後,確認網路是好的的狀態下執行
+
+```bash
+zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch.sh)
+```
+
+*~~牆國~~天朝會用DNS污染來擋 https://raw.githubusercontent.com/ 所以,若在牆內使用可以先設定好`/etc/hosts`看看是不是可以克服
+
+## 參考資料
+
+* [Arch Wiki](https://wiki.archlinux.org/) - 非常詳細的Arch Wiki幾乎所有Archlinux的設定都有相關說明,而且很多都有中文翻譯非常好用
+* [Archlinux Install Guide](https://wiki.archlinux.org/index.php/Installation_guide_(正體中文)) - 這是中文的官方安裝說明文件,算是安裝的最基礎,實際上就是Arch Wiki的一部分
+* [Miro's Blog](https://mirokaku.github.io/Blog/2016/ArchLinux-install-notes/) - 這份Archlinux的安裝筆記寫得很不錯

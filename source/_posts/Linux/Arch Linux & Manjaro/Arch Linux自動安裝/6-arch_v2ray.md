@@ -41,18 +41,18 @@ do
 			echo -e "${COLOR1}Set Time Zone to Asia/Taipei${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 			hwclock --systohc --utc
-			exit
+			break
 			;;
 		2)
 			echo -e "${COLOR1}Set Time Zone to Asia/Shanghai${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 			hwclock --systohc --utc
-			exit
+			break
 			;;
 		*)
 			echo -e "${COLOR1}Nobody cares the local time!!${NC}"
 			hwclock --systohc --utc
-			exit
+			break
 			;;
 	esac
 done
@@ -174,18 +174,18 @@ do
 			echo -e "${COLOR1}Set Time Zone to Asia/Taipei${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 			hwclock --systohc --utc
-			exit
+			break
 			;;
 		2)
 			echo -e "${COLOR1}Set Time Zone to Asia/Shanghai${NC}"
 			ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 			hwclock --systohc --utc
-			exit
+			break
 			;;
 		*)
 			echo -e "${COLOR1}Nobody cares the local time!!${NC}"
 			hwclock --systohc --utc
-			exit
+			break
 			;;
 	esac
 done

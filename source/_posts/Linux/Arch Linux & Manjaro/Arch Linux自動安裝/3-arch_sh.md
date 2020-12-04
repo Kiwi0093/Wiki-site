@@ -52,16 +52,16 @@ do
 		C)
 			echo -e "${COLOR2}Set China${NC}"
 			sed -i '/Score/{/China/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			exit
+			break
 			;;
 		T)
 			echo -e "${COLOR2}SetTaiwan${NC}"
 			sed -i '/Score/{/Taiwan/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			exit
+			break
 			;;
 		*)
 			echo -e "${COLOR2}Keep original Setting${NC}"
-			exit
+			break
 			;;
 	esac
 done
@@ -265,16 +265,16 @@ do
 		C)
 			echo -e "${COLOR2}Set China${NC}"
 			sed -i '/Score/{/China/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			exit
+			break
 			;;
 		T)
 			echo -e "${COLOR2}SetTaiwan${NC}"
 			sed -i '/Score/{/Taiwan/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
-			exit
+			break
 			;;
 		*)
 			echo -e "${COLOR2}Keep original Setting${NC}"
-			exit
+			break
 			;;
 	esac
 done
@@ -310,37 +310,37 @@ do
 		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
 		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
-		exit
+		break
 		;;
 	2)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
 		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
-		exit
+		break
 		;;
 	3)
 		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
 		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
-		exit
+		break
 		;;
 	4)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
 		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
-		exit
+		break
 		;;
 	5)
 		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
 		pacman -Syyu
 		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
-		exit
+		break
 		;;
 	*)
 		echo -e "${COLOR2}Linux Kernel${NC}"
 		pacman -Syyu
 		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
-		exit
+		break
 		;;
 	esac
 done
@@ -364,32 +364,32 @@ do
 		a)
 			echo -e "${COLOR2}Simple Arch Linux${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/simple_arch.sh)
-			exit
+			break
 			;;
 		b)
 			echo -e "${COLOR2}Nextcloud Server${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/nextc_arch.sh)
-			exit
+			break
 			;;
 		c)
 			echo -e "${COLOR2}V2Ray Server${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh)
-			exit
+			break
 			;;
 		d)
 			echo -e "${COLOR2}V2Ray Gateway${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate.sh)
-			exit
+			break
 			;;
 		e)
 			echo -e "${COLOR2}Kiwi's Private Router${NC}"
 			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate_k.sh)
-			exit
+			break
 			;;
 		*)
 			echo -e "${COLOR2}Yes! you're the chosen one!${NC}"
 			arch-root /mnt /bin/zsh
-			exit
+			break
 			;;
 	esac
 done

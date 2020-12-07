@@ -126,11 +126,11 @@ echo -e "${COLOR2}Completed${NC}"
 #install Tools
 echo -e "${COLOR1}Install Packages${NC}"
 echo -e "${COLOR1}screen${NC}"
-pacman -Sy screen v2ray certbot python3-certbot-nginx
+pacman -Sy screen v2ray certbot certbot-nginx nginx
 echo -e "${COLOR2}Completed${NC}"
 ```
 
-裝上`screen`,`v2ray`, `certbot`,`python3-certbot-nginx`,因為不想直接放`config.json`也不想盜用別人的*一鍵安裝*script所以只有把基本的裝上,其他的設定還是參考其他資料自己手工來吧
+裝上`screen`,`v2ray`, `certbot`,`certbot-nginx`,`nginx`,因為不想直接放`config.json`也不想盜用別人的*一鍵安裝*script所以只有把基本的裝上,其他的設定還是參考其他資料自己手工來吧
 
 #### 安裝Bootloader
 
@@ -244,7 +244,7 @@ echo -e "${COLOR2}Completed${NC}"
 #install Tools
 echo -e "${COLOR1}Install Packages${NC}"
 echo -e "${COLOR1}screen${NC}"
-pacman -Sy screen v2ray certbot python3-certbot-nginx
+pacman -Sy screen v2ray certbot certbot-nginx nginx
 echo -e "${COLOR2}Completed${NC}"
 
 #install Bootloader

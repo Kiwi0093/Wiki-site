@@ -47,7 +47,7 @@ tags: [Linux, Archlinux]
 用LiveCD開機後,確認網路是好的的狀態下執行
 
 ```bash
-zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch.sh)
+zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch.sh)
 ```
 
 *~~牆國~~天朝會用DNS污染來擋 https://raw.githubusercontent.com/ 所以,若在牆內使用可以先設定好`/etc/hosts`看看是不是可以克服

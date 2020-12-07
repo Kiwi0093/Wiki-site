@@ -12,7 +12,7 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://raw.gitubusercontent.com/Kiwi0093/script/master/arch.sh](https://raw.gitubusercontent.com/Kiwi0093/script/master/arch.sh)
+  [https://Kiwi0093.github.io/script/arch.sh](https://Kiwi0093.github.io/script/arch.sh)
 
 ## Script內容
 
@@ -114,37 +114,37 @@ do
 	1)
 		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
 		exit
 		;;
 	2)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
 		exit
 		;;
 	3)
 		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
 		exit
 		;;
 	4)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
 		exit
 		;;
 	5)
 		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
 		exit
 		;;
 	*)
 		echo -e "${COLOR2}Linux Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
 		exit
 		;;
 	esac
@@ -190,27 +190,27 @@ do
 	case $SCRIPT in
 		a)
 			echo -e "${COLOR2}Simple Arch Linux${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/simple_arch.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/simple_arch.sh)
 			exit
 			;;
 		b)
 			echo -e "${COLOR2}Nextcloud Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/nextc_arch.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/nextc_arch.sh)
 			exit
 			;;
 		c)
 			echo -e "${COLOR2}V2Ray Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray.sh)
 			exit
 			;;
 		d)
 			echo -e "${COLOR2}V2Ray Gateway${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate.sh)
 			exit
 			;;
 		e)
 			echo -e "${COLOR2}Kiwi's Private Router${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate_k.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate_k.sh)
 			exit
 			;;
 		*)
@@ -309,37 +309,37 @@ do
 	1)
 		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
 		break
 		;;
 	2)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
 		break
 		;;
 	3)
 		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
 		break
 		;;
 	4)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
 		break
 		;;
 	5)
 		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
 		break
 		;;
 	*)
 		echo -e "${COLOR2}Linux Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
 		break
 		;;
 	esac
@@ -363,27 +363,27 @@ do
 	case $SCRIPT in
 		a)
 			echo -e "${COLOR2}Simple Arch Linux${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/simple_arch.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/simple_arch.sh)
 			break
 			;;
 		b)
 			echo -e "${COLOR2}Nextcloud Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/nextc_arch.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/nextc_arch.sh)
 			break
 			;;
 		c)
 			echo -e "${COLOR2}V2Ray Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray.sh)
 			break
 			;;
 		d)
 			echo -e "${COLOR2}V2Ray Gateway${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate.sh)
 			break
 			;;
 		e)
 			echo -e "${COLOR2}Kiwi's Private Router${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://raw.githubusercontent.com/Kiwi0093/script/master/arch_v2ray_gate_k.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate_k.sh)
 			break
 			;;
 		*)

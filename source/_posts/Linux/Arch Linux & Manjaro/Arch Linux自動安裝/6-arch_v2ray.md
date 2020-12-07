@@ -10,7 +10,7 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://raw.gitubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh](https://raw.gitubusercontent.com/Kiwi0093/script/master/arch_v2ray.sh)
+  [https://Kiwi0093.github.io/script/arch_v2ray.sh](https://Kiwi0093.github.io/script/arch_v2ray.sh)
 
 ## Script內容
 
@@ -85,10 +85,10 @@ read EXT_IP
 echo "Address=('${EXT_IP}/24')" >> /etc/netctl/EXT0.service
 echo -n "${COLOR1}Please input your Gateway IP address:\n${NC}"
 read GATE_IP
-echo "Gateway='${GATE_IP}'"
+echo "Gateway='${GATE_IP}'" >> /etc/netctl/EXT0.service
 echo -n "${COLOR1}Please input your DNS IP address:\n${NC}"
 read DNS_IP
-echo "DNS=('${DNS_IP}')"
+echo "DNS=('${DNS_IP}')" >> /etc/netctl/EXT0.service
 echo -e "${COLOR2}Enable EXT0${NC}"
 netctl enable EXT0.service
 echo -e "${COLOR2}Finished.${NC}"
@@ -214,10 +214,10 @@ read EXT_IP
 echo "Address=('${EXT_IP}/24')" >> /etc/netctl/EXT0.service
 echo -n "${COLOR1}Please input your Gateway IP address:\n${NC}"
 read GATE_IP
-echo "Gateway='${GATE_IP}'"
+echo "Gateway='${GATE_IP}'" >> /etc/netctl/EXT0.service
 echo -n "${COLOR1}Please input your DNS IP address:\n${NC}"
 read DNS_IP
-echo "DNS=('${DNS_IP}')"
+echo "DNS=('${DNS_IP}')" >> /etc/netctl/EXT0.service
 echo -e "${COLOR2}Enable EXT0${NC}"
 netctl enable EXT0.service
 echo -e "${COLOR2}Finished.${NC}"

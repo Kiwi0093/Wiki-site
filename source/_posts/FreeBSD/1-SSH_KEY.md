@@ -69,17 +69,17 @@ chmod 644 ~/.ssh/authorized_keys
 
 然後利用sftp把id_rsa檔弄到你的windows裡面去,利用puttygen轉換檔案
 
-![Puttygen-import](D:\Desktop\puttygen-1.png)
+![Puttygen-import](https://raw.githubusercontent.com/Kiwi0093/graph/master/img/puttygen-1.png)
 
 讀進去後,可以加上自己的密碼
 
-![Puttygen-save](D:\Desktop\puttygen-2.png)
+![Puttygen-save](https://raw.githubusercontent.com/Kiwi0093/graph/master/img/puttygen-2.png)
 
 鍵入自己想要的密碼後Save as a ppk file就好了
 
 ##### 從Puttygen生成
 
-![puttygen-generate](D:\Desktop\puttygen-3.png)
+![puttygen-generate](https://raw.githubusercontent.com/Kiwi0093/graph/master/img/puttygen-3.png)
 
 基本上是一樣的在右下角設定好bits,確認是哪一種,然後按下Generate
 

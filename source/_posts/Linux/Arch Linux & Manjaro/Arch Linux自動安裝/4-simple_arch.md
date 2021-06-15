@@ -81,6 +81,21 @@ done
 echo -e "${COLOR2}Completed${NC}"
 ```
 
+####  設定Locale確認terminal是UTF8(不然Tmux不能動)
+
+```bash
+#locale-gen to add en_US & zh_TW
+echo -e "${COLOR1}Setting local file${NC}"
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "zh_TW.UTF-8 UTF-8" >> /etc/locale.gen
+echo -e "${COLOR1}Generate locale.conf${NC}"
+locale-gen
+echo -e "${COLOR1}Setting locale.conf${NC}"
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
+echo -e "${COLOR2}Completed${NC}"
+```
+
 #### 網路設定
 
 ```bash
@@ -92,7 +107,7 @@ echo "127.0.0.1 localhost ${HOSTNAME}" >> /etc/hosts
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
-echo -e "${COLOR1}Please input your MAC Address:\n${NC}"
+echo -e "${COLOR1}Please input your MAC Address(need to be lowcase):\n${NC}"
 read OUTSIDE
 echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${OUTSIDE}'", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
@@ -117,6 +132,7 @@ echo -e "${COLOR2}Finished.${NC}"
 ```
 
 * 這個設定是利用固定的**_Mac Address_**來定義**_NIC Interface_**的名字為**_EXT0_**
+* MAC address記得要用**全小寫**不然會有問題
 * 這個設定是使用`netctl`進行的
 
 #### 變更root密碼與建立其他帳號
@@ -226,6 +242,17 @@ do
 done
 echo -e "${COLOR2}Completed${NC}"
 
+#locale-gen to add en_US & zh_TW
+echo -e "${COLOR1}Setting local file${NC}"
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "zh_TW.UTF-8 UTF-8" >> /etc/locale.gen
+echo -e "${COLOR1}Generate locale.conf${NC}"
+locale-gen
+echo -e "${COLOR1}Setting locale.conf${NC}"
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
+echo -e "${COLOR2}Completed${NC}"
+
 #Hostname
 echo -e "${COLOR1}Please input your hostname\n${NC}"
 read HOSTNAME
@@ -234,7 +261,7 @@ echo "127.0.0.1 localhost ${HOSTNAME}" >> /etc/hosts
 echo -e "${COLOR2}Completed${NC}"
 
 echo -e "${COLOR1}Define your NIC by Mac address${NC}"
-echo -e "${COLOR1}Please input your MAC Address:\n${NC}"
+echo -e "${COLOR1}Please input your MAC Address(need to be lowcase):\n${NC}"
 read OUTSIDE
 echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="'${OUTSIDE}'", NAME="EXT0"' > /etc/udev/rules.d/10-network.rules
 echo -e "${COLOR2}Completed${NC}"
@@ -278,8 +305,8 @@ echo -e "${COLOR2}Completed${NC}"
 
 #install Tools
 echo -e "${COLOR1}Install Packages${NC}"
-echo -e "${COLOR1}screen${NC}"
-pacman -Syu screen
+echo -e "${COLOR1}tmux${NC}"
+pacman -Syu tmux
 echo -e "${COLOR2}Completed${NC}"
 
 #install Bootloader

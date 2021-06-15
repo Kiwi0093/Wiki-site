@@ -1,6 +1,6 @@
 ---
 title: 整合型Archlinux安裝Script - Before Start
-date: 2020-12-04
+date: 2021-06-15
 tags: [Linux, Archlinux]
 ---
 
@@ -13,6 +13,8 @@ tags: [Linux, Archlinux]
 * 20GB以上的HDD空間
 
 這個版本會做以下可選項目
+
+**update 2021/06/15 因為搬回台灣用不上了所以刪除 Ver.K並不再維護該條目*
 
 * Simple Arch linux
   - 基本型Arch Linux,只安裝基本的系統工具
@@ -30,13 +32,13 @@ tags: [Linux, Archlinux]
   - 外網可選PPPOE或Static IP
   - 內網為固定IP
   - Copy Live CD中的zsh設定
-* V2Ray Client Gateway Kiwi private version
-  - Arch Linux with V2Ray with現有Kiwi的相關設定(加密,私人使用)
-  - 直接套用Kiwi現有的iptable(加密,私人使用)
-  - 雙NIC with固定MAC Address
-  - 外網可選PPPOE或Static IP
-  - 內網為固定IP
-  - Copy Live CD中的zsh設定
+* ~~V2Ray Client Gateway Kiwi private version~~
+  - ~~Arch Linux with V2Ray with現有Kiwi的相關設定(加密,私人使用)~~
+  - ~~直接套用Kiwi現有的iptable(加密,私人使用)~~
+  - ~~雙NIC with固定MAC Address~~
+  - ~~外網可選PPPOE或Static IP~~
+  - ~~內網為固定IP~~
+  - ~~Copy Live CD中的zsh設定~~
 * Nextcloud Server
   - Arch Linux With Nextcloud from package
   - 單NIC with固定MAC Address & Static IP

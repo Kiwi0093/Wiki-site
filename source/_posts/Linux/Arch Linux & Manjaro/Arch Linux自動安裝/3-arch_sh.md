@@ -1,6 +1,6 @@
 ---
 title: 整合型Archlinux安裝Script - arch.sh說明
-date: 2020-12-04
+date: 2021-06-15
 tags: [Linux, Archlinux]
 ---
 
@@ -21,14 +21,37 @@ tags: [Linux, Archlinux]
 #### 基本定義
 
 ```bash
-#!/bin/zsh
+#!/bin/sh
 #Parmeter Pre-Define
+#Color for warning
+COLOR_W='\e[35m'
+#Color for description
 COLOR1='\e[94m'
 COLOR2='\e[32m'
+# Color for Highlight package
+COLOR_H1='\e[96m'
+COLOR_H2='\e[34m'
 NC='\e[0m'
 ```
 
 這個script default只有顯示顏色是寫死的,可以參考Script語法說明裡面的說明修改顏色,或是自己修改的時候增加變數設定
+
+**Update 2021/06/15 修改為四色,同Manjaro script*
+
+#### 警示標語
+
+```bash
+#Notice before use
+echo -e "${COLOR_W}=====================Warning=======================\n${NC}"
+echo -e "${COLOR_W}=  Kiwi's Arch linux Auto install script Ver.1.1  =\n${NC}"
+echo -e "${COLOR_W}=  This Script for Kiwi private use.              =\n${NC}"
+echo -e "${COLOR_W}=  If you have any issue on usage,                =\n${NC}"
+echo -e "${COLOR_W}=  Please DON'T Feedback to Kiwi                  =\n${NC}"
+echo -e "${COLOR_W}=  And you should take your own responsibility    =\n${NC}"
+echo -e "${COLOR_W}===================================================\n${NC}"
+```
+
+同Manjaro script加上警示標語,並且加上版號管控
 
 #### 設定時區
 
@@ -43,12 +66,11 @@ echo -e "${COLOR2}NTP Setup Completed${NC}"
 
 ```bash
 #Modify Mirrorlist to setting country
-echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
-echo -n "${COLOR1}Please Select the country you want to set for mirror list\nC)China\nT)Taiwan\n*)whatever..I don't care\n${NC}"
+echo -n "${COLOR1}Please Select the country you want to set for mirror list\n${NC}${COLOR_H1}C)China\nT)Taiwan\n*)whatever..I don't care\n${NC}"
 while :
 do
 	read COUNTRY
-	case $ COUNTRY in
+	case $COUNTRY in
 		C)
 			echo -e "${COLOR2}Set China${NC}"
 			sed -i '/Score/{/China/!{n;s/^/#/}}' /etc/pacman.d/mirrorlist
@@ -72,11 +94,13 @@ echo -e "${COLOR2}Completed${NC}"
 
 後面加上的`pacman -Syyu`主要是用來更新mirror list的使用所下的指令
 
+**Update 2021/06/15 選項全數加上顏色tag增加目視辨識度*
+
 #### Fdisk & Mount
 
 ```bash
 #Fdisk
-echo -e "${COLOR1}Partition your HDD please create 1 data as sda1 and 1 swap as sda2${NC}"
+echo -e "${COLOR1}Partition your HDD please create sda1 for Data and sda2 for Swap.${NC}"
 fdisk /dev/sda
 echo -e "${COLOR2}Partition Setup Completed${NC}"
 
@@ -106,7 +130,7 @@ script中採用最常見但是效率不是最好的ext4格式作為這個archlin
 ```bash
 #Install
 echo -e "${COLOR1}Starting Install Archlinux into /mnt${NC}"
-echo -e "${COLOR1}Please select your CPU vendor and Linux Kernel you want:\n1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)Whatever, Normal Linux Kernel is good enough to me\n${NC}"
+echo -e "${COLOR1}Please select your CPU vendor and Linux Kernel you want:\n${NC}${COLOR_H1}1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)Whatever, Normal Linux Kernel is good enough to me\n${NC}"
 while :
 do
 	read CPU
@@ -114,38 +138,38 @@ do
 	1)
 		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
-		exit
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools openssh
+		break
 		;;
 	2)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
-		exit
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools openssh
+		break
 		;;
 	3)
 		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
-		exit
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools openssh
+		break
 		;;
 	4)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
-		exit
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools openssh
+		break
 		;;
 	5)
 		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
-		exit
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools openssh
+		break
 		;;
 	*)
 		echo -e "${COLOR2}Linux Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
-		exit
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools openssh
+		break
 		;;
 	esac
 done
@@ -183,40 +207,35 @@ echo -e "${COLOR2}Completed${NC}"
 #### 選擇fetch哪一個安裝script並且進入arch-root
 
 ```bash
-echo -n "${COLOR1}Please select which type you want\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\ne)Kiwi's private router\n*)I'm the best! let me do by my own!!\n${NC}"
+echo -n "${COLOR1}Please select which type you want${NC}${COLOR_H1}\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\n*)I'm the best! let me do by my own!!\n${NC}"
 while :
 do
 	read SCRIPT
 	case $SCRIPT in
 		a)
 			echo -e "${COLOR2}Simple Arch Linux${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/simple_arch.sh)
-			exit
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/simple_arch.sh)
+			break
 			;;
 		b)
 			echo -e "${COLOR2}Nextcloud Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/nextc_arch.sh)
-			exit
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/nextc_arch.sh)
+			break
 			;;
 		c)
 			echo -e "${COLOR2}V2Ray Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray.sh)
-			exit
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/arch_v2ray.sh)
+			break
 			;;
 		d)
 			echo -e "${COLOR2}V2Ray Gateway${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate.sh)
-			exit
-			;;
-		e)
-			echo -e "${COLOR2}Kiwi's Private Router${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate_k.sh)
-			exit
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/arch_v2ray_gate.sh)
+			break
 			;;
 		*)
 			echo -e "${COLOR2}Yes! you're the chosen one!${NC}"
 			arch-root /mnt /bin/zsh
-			exit
+			break
 			;;
 	esac
 done
@@ -227,6 +246,8 @@ done
 > 先在Live CD的OS內對HDD進行處理,然後把透過網路把新的archlinux的系統裝進HDD內,然後chroot到新的系統內,利用新的系統的東西,進行初步的設定與啟動設定等動作,最後再完全退出重開改以HDD進行開機這樣算是完成了一個新的系統的安裝
 
 所以做成選項自動在進入arch-chroot後執行該跑得script,或是空的進入arch-chroot後讓人自己處理
+
+**Update 2021/06/15 刪除Kiwi's Private Router選項,因為用不到了*
 
 #### 進入Arch-chroot與離開後自動重開機
 
@@ -241,14 +262,26 @@ reboot
 ### 完整內容
 
 ```bash
-#------------------------------------------------------------------------------
-#(從Iso boot後直到完成change root內所有安裝/調整動作)
-#------------------------------------------------------------------------------
-#!/bin/zsh
+#!/bin/sh
 #Parmeter Pre-Define
+#Color for warning
+COLOR_W='\e[35m'
+#Color for description
 COLOR1='\e[94m'
 COLOR2='\e[32m'
+# Color for Highlight package
+COLOR_H1='\e[96m'
+COLOR_H2='\e[34m'
 NC='\e[0m'
+
+#Notice before use
+echo -e "${COLOR_W}=====================Warning=======================\n${NC}"
+echo -e "${COLOR_W}=  Kiwi's Arch linux Auto install script Ver.1.1  =\n${NC}"
+echo -e "${COLOR_W}=  This Script for Kiwi private use.              =\n${NC}"
+echo -e "${COLOR_W}=  If you have any issue on usage,                =\n${NC}"
+echo -e "${COLOR_W}=  Please DON'T Feedback to Kiwi                  =\n${NC}"
+echo -e "${COLOR_W}=  And you should take your own responsibility    =\n${NC}"
+echo -e "${COLOR_W}===================================================\n${NC}"
 
 #start ntp
 echo -e "${COLOR1}Starting NTP Service${NC}"
@@ -256,8 +289,7 @@ timedatectl set-ntp true
 echo -e "${COLOR2}NTP Setup Completed${NC}"
 
 #Modify Mirrorlist to setting country
-echo -e "${COLOR1}Starting Modify mirrorlist to China servers${NC}"
-echo -n "${COLOR1}Please Select the country you want to set for mirror list\nC)China\nT)Taiwan\n*)whatever..I don't care\n${NC}"
+echo -n "${COLOR1}Please Select the country you want to set for mirror list\n${NC}${COLOR_H1}C)China\nT)Taiwan\n*)whatever..I don't care\n${NC}"
 while :
 do
 	read COUNTRY
@@ -281,7 +313,7 @@ done
 echo -e "${COLOR2}Completed${NC}"
 
 #Fdisk
-echo -e "${COLOR1}Partition your HDD please create 1 data as sda1 and 1 swap as sda2${NC}"
+echo -e "${COLOR1}Partition your HDD please create sda1 for Data and sda2 for Swap.${NC}"
 fdisk /dev/sda
 echo -e "${COLOR2}Partition Setup Completed${NC}"
 
@@ -301,7 +333,7 @@ echo -e "${COLOR2}Completed${NC}"
 
 #Install
 echo -e "${COLOR1}Starting Install Archlinux into /mnt${NC}"
-echo -e "${COLOR1}Please select your CPU vendor and Linux Kernel you want:\n1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)Whatever, Normal Linux Kernel is good enough to me\n${NC}"
+echo -e "${COLOR1}Please select your CPU vendor and Linux Kernel you want:\n${NC}${COLOR_H1}1)Intel+Linux\n2)Intel+Linux-LTS\n3)Amd+Linux\n4)Amd+Linux-LTS\n5)Linux-LTS Kernel\n*)Whatever, Normal Linux Kernel is good enough to me\n${NC}"
 while :
 do
 	read CPU
@@ -309,37 +341,37 @@ do
 	1)
 		echo -e "${COLOR2}Linux Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools openssh
 		break
 		;;
 	2)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Intel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl intel-ucode grub dnsutils open-vm-tools vim net-tools openssh
 		break
 		;;
 	3)
 		echo -e "${COLOR2}Linux Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools openssh
 		break
 		;;
 	4)
 		echo -e "${COLOR2}Linux-LTS Kernel＋Amd${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl amd-ucode grub dnsutils open-vm-tools vim net-tools openssh
 		break
 		;;
 	5)
 		echo -e "${COLOR2}Linux-LTS Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
+		pacstrap /mnt base linux-lts linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools openssh
 		break
 		;;
 	*)
 		echo -e "${COLOR2}Linux Kernel${NC}"
 		pacman -Syyu
-		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools
+		pacstrap /mnt base linux linux-firmware vim zsh curl netctl grub dnsutils open-vm-tools vim net-tools openssh
 		break
 		;;
 	esac
@@ -356,34 +388,29 @@ echo "${COLOR1}Starting Copy ZSH setting file to new Archlinux${NC}"
 cp -Rv /etc/zsh /mnt/etc/
 echo -e "${COLOR2}Completed${NC}"
 
-echo -n "${COLOR1}Please select which type you want\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\ne)Kiwi's private router\n*)I'm the best! let me do by my own!!\n${NC}"
+echo -n "${COLOR1}Please select which type you want${NC}${COLOR_H1}\na)Simple Server\nb)Nextcloud Server\nc)V2Ray Server\nd)V2Ray Gateway\n*)I'm the best! let me do by my own!!\n${NC}"
 while :
 do
 	read SCRIPT
 	case $SCRIPT in
 		a)
 			echo -e "${COLOR2}Simple Arch Linux${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/simple_arch.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/simple_arch.sh)
 			break
 			;;
 		b)
 			echo -e "${COLOR2}Nextcloud Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/nextc_arch.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/nextc_arch.sh)
 			break
 			;;
 		c)
 			echo -e "${COLOR2}V2Ray Server${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/arch_v2ray.sh)
 			break
 			;;
 		d)
 			echo -e "${COLOR2}V2Ray Gateway${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate.sh)
-			break
-			;;
-		e)
-			echo -e "${COLOR2}Kiwi's Private Router${NC}"
-			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.gitub.io/script/arch_v2ray_gate_k.sh)
+			arch-chroot /mnt /bin/zsh <(curl -L -s https://Kiwi0093.github.io/script/arch_v2ray_gate.sh)
 			break
 			;;
 		*)

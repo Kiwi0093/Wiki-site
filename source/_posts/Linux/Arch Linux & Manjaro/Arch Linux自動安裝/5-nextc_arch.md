@@ -182,6 +182,7 @@ echo -e "${COLOR1}tmux${NC}"
 pacman -Syu --noconfirm git go base-devel tmux mariadb php php-apcu php-fpm php-gd php-imap php-intl php-imagick nginx certbot certbot-nginx nextcloud
 echo -e "${COLOR2}Completed${NC}"
 echo -e "${COLOR1}Install yay${NC}"
+cd /root
 git clone https://aur.archlinux.org/yay.git
 chomd 777 yay
 cd yay
@@ -217,9 +218,10 @@ echo "collation_server = utf8mb4_unicode_ci" >> /etc/my.cnf
 echo "character_set_server = utf8mb4" >> /etc/my.cnf
 echo "tmpdir      = /var/lib/mysqltmp" >> /etc/my.cnf
 mount /var/lib/mysqltmp
-mysql_secure_installation
 systemctl enable mariadb.service
-systemctl start mariadb.service
+sudo -u mysql /usr/bin/mariadbd &
+
+mysql_secure_installation
 echo -n "${COLOR1}Please input your Username for Nextcloud Database:\n${NC}"
 read NCUSER
 echo -n "${COLOR1}Please input your Password for Nextcloud Database User:\n${NC}"
@@ -305,7 +307,7 @@ echo -n "${COLOR1}Please input you Domain for your Nextcloud Server${NC}"
 read NCDOMAIN
 mv /etc/nginx/nginx.conf /etc/nginx.conf.old
 mkdir /etc/nginx/conf.d
-mkdir /etc/nginx/sites-enable
+mkdir /etc/nginx/sites-enabled
 echo "user http;" > /etc/nginx/nginx.conf
 echo "worker_processes auto;" >> /etc/nginx/nginx.conf
 echo "worker_cpu_affinity auto;" >> /etc/nginx/nginx.conf
@@ -338,7 +340,6 @@ echo "    include /etc/nginx/conf.d/*.conf;" >> /etc/nginx/nginx.conf
 echo "    include /etc/nginx/sites-enabled/*;" >> /etc/nginx/nginx.conf
 echo "}" >> /etc/nginx/nginx.conf
 
-
 echo "upstream php-handler {" > /etc/nginx/sites-enabled/nextcloud
 echo "    server 127.0.0.1:9000;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    #server unix:/var/run/php/php7.4-fpm.sock;" >> /etc/nginx/sites-enabled/nextcloud
@@ -350,7 +351,7 @@ echo "    listen [::]:80;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    server_name ${NCDOMAIN};" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "    # Enforce HTTPS" >> /etc/nginx/sites-enabled/nextcloud
-echo "    return 301 https://$server_name$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
+echo '    return 301 https://$server_name$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
 echo "}" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "server {" >> /etc/nginx/sites-enabled/nextcloud
@@ -358,18 +359,8 @@ echo "    listen 443      ssl http2;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    listen [::]:443 ssl http2;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    server_name ${NCDOMAIN};" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Use Mozilla's guidelines for SSL/TLS settings" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # https://mozilla.github.io/server-side-tls/ssl-config-generator/" >> /etc/nginx/sites-enabled/nextcloud
 echo "    ssl_certificate     /etc/ssl/nginx/${NCDOMAIN}.crt;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    ssl_certificate_key /etc/ssl/nginx/${NCDOMAIN}.key;" >> /etc/nginx/sites-enabled/nextcloud
-echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # HSTS settings" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # WARNING: Only add the preload option once you read about" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # the consequences in https://hstspreload.org/. This option" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # will add the domain to a hardcoded list that is shipped" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # in all major browsers and getting removed from this list" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # could take several months." >> /etc/nginx/sites-enabled/nextcloud
-echo "    #add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;" always;" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "    # set max upload size" >> /etc/nginx/sites-enabled/nextcloud
 echo "    client_max_body_size 16G;" >> /etc/nginx/sites-enabled/nextcloud
@@ -383,18 +374,14 @@ echo "    gzip_min_length 256;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Pagespeed is not supported by Nextcloud, so if your server is built" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # with the `ngx_pagespeed` module, uncomment this line to disable it." >> /etc/nginx/sites-enabled/nextcloud
-echo "    #pagespeed off;" >> /etc/nginx/sites-enabled/nextcloud
-echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # HTTP response headers borrowed from Nextcloud `.htaccess`" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header Referrer-Policy                      "no-referrer"   always;" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header X-Content-Type-Options               "nosniff"       always;" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header X-Download-Options                   "noopen"        always;" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header X-Frame-Options                      "SAMEORIGIN"    always;" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header X-Permitted-Cross-Domain-Policies    "none"          always;" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header X-Robots-Tag                         "none"          always;" >> /etc/nginx/sites-enabled/nextcloud
-echo "    add_header X-XSS-Protection                     "1; mode=block" always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    # HTTP response headers borrowed from Nextcloud \`.htaccess\`" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header Referrer-Policy                      \"no-referrer\"   always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header X-Content-Type-Options               \"nosniff\"       always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header X-Download-Options                   \"noopen\"        always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header X-Frame-Options                      \"SAMEORIGIN\"    always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header X-Permitted-Cross-Domain-Policies    \"none\"          always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header X-Robots-Tag                         \"none\"          always;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    add_header X-XSS-Protection                     \"1; mode=block\" always;" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "    # Remove X-Powered-By, which is an information leak" >> /etc/nginx/sites-enabled/nextcloud
 echo "    fastcgi_hide_header X-Powered-By;" >> /etc/nginx/sites-enabled/nextcloud
@@ -402,22 +389,11 @@ echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "    # Path to the root of your installation" >> /etc/nginx/sites-enabled/nextcloud
 echo "    root /var/www/nextcloud;" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Specify how to handle directories -- specifying `/index.php$request_uri`" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # here as the fallback means that Nginx always exhibits the desired behaviour" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # when a client requests a path that corresponds to a directory that exists" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # on the server. In particular, if that directory contains an index.php file," >> /etc/nginx/sites-enabled/nextcloud
-echo "    # that file is correctly served; if it doesn't, then the request is passed to" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # the front-end controller. This consistent behaviour means that we don't need" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # to specify custom rules for certain paths (e.g. images and other assets," >> /etc/nginx/sites-enabled/nextcloud
-echo "    # `/updater`, `/ocm-provider`, `/ocs-provider`), and thus" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # `try_files $uri $uri/ /index.php$request_uri`" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # always provides the desired behaviour." >> /etc/nginx/sites-enabled/nextcloud
-echo "    index index.php index.html /index.php$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
+echo '    index index.php index.html /index.php$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Rule borrowed from `.htaccess` to handle Microsoft DAV clients" >> /etc/nginx/sites-enabled/nextcloud
 echo "    location = / {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        if ( $http_user_agent ~ ^DavClnt ) {" >> /etc/nginx/sites-enabled/nextcloud
-echo "            return 302 /remote.php/webdav/$is_args$args;" >> /etc/nginx/sites-enabled/nextcloud
+echo '        if ( $http_user_agent ~ ^DavClnt ) {' >> /etc/nginx/sites-enabled/nextcloud
+echo '            return 302 /remote.php/webdav/$is_args$args;' >> /etc/nginx/sites-enabled/nextcloud
 echo "        }" >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
@@ -427,42 +403,29 @@ echo "        log_not_found off;" >> /etc/nginx/sites-enabled/nextcloud
 echo "        access_log off;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Make a regex exception for `/.well-known` so that clients can still" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # access it despite the existence of the regex rule" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # `location ~ /(\.|autotest|...)` which would otherwise handle requests" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # for `/.well-known`." >> /etc/nginx/sites-enabled/nextcloud
-echo "    location ^~ /.well-known {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        # The rules in this block are an adaptation of the rules" >> /etc/nginx/sites-enabled/nextcloud
-echo "        # in `.htaccess` that concern `/.well-known`." >> /etc/nginx/sites-enabled/nextcloud
+echo '    location ^~ /.well-known {' >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "        location = /.well-known/carddav { return 301 /remote.php/dav/; }" >> /etc/nginx/sites-enabled/nextcloud
 echo "        location = /.well-known/caldav  { return 301 /remote.php/dav/; }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "        location /.well-known/acme-challenge    { try_files $uri $uri/ =404; }" >> /etc/nginx/sites-enabled/nextcloud
-echo "        location /.well-known/pki-validation    { try_files $uri $uri/ =404; }" >> /etc/nginx/sites-enabled/nextcloud
+echo '        location /.well-known/acme-challenge    { try_files $uri $uri/ =404; }' >> /etc/nginx/sites-enabled/nextcloud
+echo '        location /.well-known/pki-validation    { try_files $uri $uri/ =404; }' >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "        # Let Nextcloud's API for `/.well-known` URIs handle all other" >> /etc/nginx/sites-enabled/nextcloud
-echo "        # requests by passing them to the front-end controller." >> /etc/nginx/sites-enabled/nextcloud
-echo "        return 301 /index.php$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
+echo '        return 301 /index.php$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Rules borrowed from `.htaccess` to hide certain paths from clients" >> /etc/nginx/sites-enabled/nextcloud
-echo "    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)  { return 404; }" >> /etc/nginx/sites-enabled/nextcloud
-echo "    location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)                { return 404; }" >> /etc/nginx/sites-enabled/nextcloud
+echo '    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)  { return 404; }' >> /etc/nginx/sites-enabled/nextcloud
+echo '    location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console)                { return 404; }' >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Ensure this block, which passes PHP files to the PHP process, is above the blocks" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # which handle static assets (as seen below). If this block is not declared first," >> /etc/nginx/sites-enabled/nextcloud
-echo "    # then Nginx will encounter an infinite rewriting loop when it prepends `/index.php`" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # to the URI, resulting in a HTTP 500 error response." >> /etc/nginx/sites-enabled/nextcloud
-echo "    location ~ \.php(?:$|/) {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        fastcgi_split_path_info ^(.+?\.php)(/.*)$;" >> /etc/nginx/sites-enabled/nextcloud
-echo "        set $path_info $fastcgi_path_info;" >> /etc/nginx/sites-enabled/nextcloud
+echo '    location ~ \.php(?:$|/) {' >> /etc/nginx/sites-enabled/nextcloud
+echo '        fastcgi_split_path_info ^(.+?\.php)(/.*)$;' >> /etc/nginx/sites-enabled/nextcloud
+echo '        set $path_info $fastcgi_path_info;' >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "        try_files $fastcgi_script_name =404;" >> /etc/nginx/sites-enabled/nextcloud
+echo '        try_files $fastcgi_script_name =404;' >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "        include fastcgi_params;" >> /etc/nginx/sites-enabled/nextcloud
-echo "        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;" >> /etc/nginx/sites-enabled/nextcloud
-echo "        fastcgi_param PATH_INFO $path_info;" >> /etc/nginx/sites-enabled/nextcloud
+echo '        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' >> /etc/nginx/sites-enabled/nextcloud
+echo '        fastcgi_param PATH_INFO $path_info;' >> /etc/nginx/sites-enabled/nextcloud
 echo "        fastcgi_param HTTPS on;" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
 echo "        fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice" >> /etc/nginx/sites-enabled/nextcloud
@@ -473,25 +436,24 @@ echo "        fastcgi_intercept_errors on;" >> /etc/nginx/sites-enabled/nextclou
 echo "        fastcgi_request_buffering off;" >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    location ~ \.(?:css|js|svg|gif)$ {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        try_files $uri /index.php$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
-echo "        expires 6M;         # Cache-Control policy borrowed from `.htaccess`" >> /etc/nginx/sites-enabled/nextcloud
+echo '    location ~ \.(?:css|js|svg|gif)$ {' >> /etc/nginx/sites-enabled/nextcloud
+echo '        try_files $uri /index.php$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
+echo "        expires 6M;         # Cache-Control policy borrowed from \`.htaccess\`" >> /etc/nginx/sites-enabled/nextcloud
 echo "        access_log off;     # Optional: Don't log access to assets" >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    location ~ \.woff2?$ {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        try_files $uri /index.php$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
-echo "        expires 7d;         # Cache-Control policy borrowed from `.htaccess`" >> /etc/nginx/sites-enabled/nextcloud
+echo '    location ~ \.woff2?$ {' >> /etc/nginx/sites-enabled/nextcloud
+echo '        try_files $uri /index.php$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
+echo "        expires 7d;         # Cache-Control policy borrowed from \`.htaccess\`" >> /etc/nginx/sites-enabled/nextcloud
 echo "        access_log off;     # Optional: Don't log access to assets" >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    # Rule borrowed from `.htaccess`" >> /etc/nginx/sites-enabled/nextcloud
 echo "    location /remote {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        return 301 /remote.php$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
+echo '        return 301 /remote.php$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "" >> /etc/nginx/sites-enabled/nextcloud
-echo "    location / {" >> /etc/nginx/sites-enabled/nextcloud
-echo "        try_files $uri $uri/ /index.php$request_uri;" >> /etc/nginx/sites-enabled/nextcloud
+echo "    location / {" >> /etc/nginx/sitqes-enabled/nextcloud
+echo '        try_files $uri $uri/ /index.php$request_uri;' >> /etc/nginx/sites-enabled/nextcloud
 echo "    }" >> /etc/nginx/sites-enabled/nextcloud
 echo "}" >> /etc/nginx/sites-enabled/nextcloud
 
@@ -499,7 +461,7 @@ systemctl enable nginx.service
 echo -e "${COLOR2}Nginx setup complted${NC}"
 ```
 
-
+這裡要特別注意設定檔內有特殊符號的要把**_" "_**換成**_' '_**不然會有問題
 
 ##### Certbot
 

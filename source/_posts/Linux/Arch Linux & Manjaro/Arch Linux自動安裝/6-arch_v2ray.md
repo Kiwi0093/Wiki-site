@@ -1,5 +1,5 @@
 ---
-title: 整合型Archlinux安裝Script - arch_v2ray.sh說明
+title: 整合型Archlinux安裝Script - 6.arch_v2ray.sh說明
 date: 2020-12-04
 tags: [Linux, Archlinux]
 ---
@@ -10,7 +10,7 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://Kiwi0093.github.io/script/arch_v2ray.sh](https://Kiwi0093.github.io/script/arch_v2ray.sh)
+  [https://Kiwi0093.github.io/script/Arch/arch_v2ray.sh](https://Kiwi0093.github.io/script/Arch/arch_v2ray.sh)
 
 ## Script內容
 

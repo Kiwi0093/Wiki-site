@@ -1,5 +1,5 @@
 ---
-title: 整合型Archlinux安裝Script - 架構說明
+title: 整合型Archlinux安裝Script - 2.架構說明
 date: 2020-12-04
 tags: [Linux, Archlinux]
 ---

@@ -1,5 +1,5 @@
 ---
-title: 整合型Archlinux安裝Script - nextc_arch.sh說明
+title: 整合型Archlinux安裝Script - 5.nextc_arch.sh說明
 date: 2020-06-16
 tags: [Linux, Archlinux]
 ---
@@ -10,7 +10,7 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://raw.gitubusercontent.com/Kiwi0093/script/master/nextc_arch.sh](https://raw.gitubusercontent.com/Kiwi0093/script/master/nextc_arch.sh)
+  [https://Kiwi0093.github.com/script/Arch/nextc_arch.sh](https://Kiwi0093.github.com/script/Arch/nextc_arch.sh)
 
 *  開機設定網路
 
@@ -29,6 +29,8 @@ ip route add default via 192.168.10.254 dev ens160
 ```
 
 好了之後Ping一下會通就好了
+
+* 其實不用這個,直接用Docker搞不好還比較快
 
 ## Script內容
 

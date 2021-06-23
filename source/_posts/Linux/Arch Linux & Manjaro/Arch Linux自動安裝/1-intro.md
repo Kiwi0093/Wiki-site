@@ -1,5 +1,5 @@
 ---
-title: 整合型Archlinux安裝Script - Before Start
+title: 整合型Archlinux安裝Script - 1.Before Start
 date: 2021-06-15
 tags: [Linux, Archlinux]
 ---
@@ -8,7 +8,7 @@ tags: [Linux, Archlinux]
 
 這是一個用在**_VMware ESXi_**上的汎用型**Arch linux**安裝script,基本預設條件如下
 
-* Intel CPU
+* ~~Intel CPU~~(Script裡面有AMD-ucode)
 * 1~2GB的RAM
 * 20GB以上的HDD空間
 
@@ -39,7 +39,7 @@ tags: [Linux, Archlinux]
   - ~~外網可選PPPOE或Static IP~~
   - ~~內網為固定IP~~
   - ~~Copy Live CD中的zsh設定~~
-* Nextcloud Server
+* Nextcloud Server(後面發現其實用docker比較快)
   - Arch Linux With Nextcloud from package
   - 單NIC with固定MAC Address & Static IP
   - Copy Live CD中的zsh設定
@@ -53,6 +53,8 @@ zsh <(curl -L -s https://Kiwi0093.gitub.io/script/Arch/arch.sh)
 ```
 
 *~~牆國~~天朝會用DNS污染來擋 https://raw.githubusercontent.com/ 所以,若在牆內使用可以先設定好`/etc/hosts`看看是不是可以克服
+
+*後來我都改用https://Kiwi0093.github.io這個web直接放我的Script
 
 ## 參考資料
 

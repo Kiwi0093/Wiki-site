@@ -1,8 +1,10 @@
 ---
-title: 整合型Archlinux安裝Script - arch_v2ray_gate_k.sh說明
-date: 2020-12-04
+title: 整合型Archlinux安裝Script - 8.arch_v2ray_gate_k.sh說明
+date: 2021-6-23
 tags: [Linux, Archlinux]
 ---
+
+# *本條目已不再適用,不僅停止維護,原先的script也被移除了*
 
 ## 使用前
 
@@ -12,7 +14,7 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://Kiwi0093.github.io/script/arch_v2ray_gate_k.sh](https://Kiwi0093.github.io/script/arch_v2ray_gate_k.sh)
+  [https://Kiwi0093.github.io/script/Arch/arch_v2ray_gate_k.sh](https://Kiwi0093.github.io/script/Arch/arch_v2ray_gate_k.sh)
 
 ## Script內容
 

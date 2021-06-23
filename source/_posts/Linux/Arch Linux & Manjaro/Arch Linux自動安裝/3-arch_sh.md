@@ -1,5 +1,5 @@
 ---
-title: 整合型Archlinux安裝Script - arch.sh說明
+title: 整合型Archlinux安裝Script - 3.arch.sh說明
 date: 2021-06-15
 tags: [Linux, Archlinux]
 ---
@@ -12,7 +12,17 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://Kiwi0093.github.io/script/arch.sh](https://Kiwi0093.github.io/script/arch.sh)
+  [https://Kiwi0093.github.io/script/Arch/arch.sh](https://Kiwi0093.github.io/script/arch.sh)
+
+* 可以手動設定網路(若網路沒有DCHP可以跑的話)
+
+```bash
+#利用ip指令設定網路連線
+ip address add $YOUR_IP/24 dev $your_dev
+ip route add default $Gateway_IP dev $your_dev
+```
+
+
 
 ## Script內容
 

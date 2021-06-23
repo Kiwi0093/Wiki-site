@@ -1,5 +1,5 @@
 ---
-title: 整合型Archlinux安裝Script - simple_arch.sh說明
+title: 整合型Archlinux安裝Script - 4.simple_arch.sh說明
 date: 2021-06-15
 tags: [Linux, Archlinux]
 ---
@@ -10,7 +10,7 @@ tags: [Linux, Archlinux]
 
 * Script的直接位置如下：
 
-  [https://Kiwi0093.github.io/script/simple_arch.sh](https://Kiwi0093.github.io/script/simple_arch.sh)
+  [https://Kiwi0093.github.io/script/Arch/simple_arch.sh](https://Kiwi0093.github.io/script/Arch/simple_arch.sh)
 
 ## Script內容
 

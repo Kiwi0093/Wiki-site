@@ -7,6 +7,8 @@ tags: [Linux, Arch,Manjaro]
 
 [FOSS Linux](https://www.fosslinux.com/4252/how-to-find-mirror-list-and-set-fastest-download-server-on-manjaro.htm)
 
+<!--more-->
+
 ##### By Country選擇
 
 ```Bash

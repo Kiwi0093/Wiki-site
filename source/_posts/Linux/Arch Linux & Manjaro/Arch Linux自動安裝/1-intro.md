@@ -4,6 +4,12 @@ date: 2021-06-15
 tags: [Linux, Archlinux]
 ---
 
+# 前言
+
+在Linux的世界裡,我最喜歡Arch系的系統,但是Arch Linux的安裝並不是很人性化所以我就想說自己寫script來進行安裝
+
+<!--more-->
+
 ## 適用範圍
 
 這是一個用在**_VMware ESXi_**上的汎用型**Arch linux**安裝script,基本預設條件如下

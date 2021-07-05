@@ -8,6 +8,8 @@ tag: [Linux, script]
 
 參考[FLOZz’ MISC](https://misc.flogisoft.com/bash/tip_colors_and_formatting)的說明頁面
 
+<!--more-->
+
 ## 基本語法
 
 ```

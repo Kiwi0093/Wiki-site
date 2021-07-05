@@ -3,6 +3,12 @@ title: Use SSH Key to improve connection security
 tags: [Linux, FreeBSD]
 ---
 
+# 前言
+
+為了家中主Server的安全,ssh的登入採用ssh key的方式進行
+
+<!--more-->
+
 #### 參考網頁
 
 [MIS腳印 - Windows 使用 SSH 金鑰免密碼登入 Linux](https://www.footmark.info/linux/centos/windows-ssh-nopassword-linux/)

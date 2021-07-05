@@ -10,6 +10,8 @@ tags: [Network, V2Ray, VPN]
 
 另外這個新版的*VLESS*協議因為沒有自身的加密,所以目前都是強制要加掛TLS(其實就是希望把加密都改成依靠TLS達到加密的安全性)
 
+<!--more-->
+
 ## 參考資料
 
 [v2fly在Github上的安裝說明](https://github.com/v2fly/fhs-install-v2ray)

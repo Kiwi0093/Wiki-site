@@ -8,7 +8,7 @@ tags: [Game,PC-Game,SLG]
 
 這個遊戲的Mod在[Nexus mods](https://www.nexusmods.com/battletech)裡面就有
 
-
+<!--more-->
 
 ## Modify
 

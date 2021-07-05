@@ -9,6 +9,8 @@ Hexo本體的設定均在`<folder>/_config.yml`裡面,大多數的設定都可�
 
 詳細的[Hexo Configuration](https://hexo.io/docs/configuration.html)
 
+<!--more-->
+
 #### #Site Section
 
 ```c

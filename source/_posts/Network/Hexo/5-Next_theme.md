@@ -3,6 +3,12 @@ title: Next Theme的安裝與設定
 tags: [Network,Server,Git,Blog]
 ---
 
+# 前言
+
+Next主題是一個很漂亮的Blog主題/風格,安裝起來也非常簡單用npm直接下指令安裝就好了
+
+<!--more-->
+
 ### 安裝
 
 [Next Theme官網](https://github.com/next-theme/hexo-theme-next)上有兩種安裝方式

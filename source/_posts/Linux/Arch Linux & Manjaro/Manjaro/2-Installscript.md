@@ -4,6 +4,12 @@ date: 2020-12-25
 tags: [Linunx, Manjaro]
 ---
 
+# 前言
+
+這個script就跟自動安裝一樣其實用處不大,主要還是拿來當作shell script的寫作練習
+
+<!--more-->
+
 ## 基本定義與警告
 
 ```bash

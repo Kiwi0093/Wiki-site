@@ -7,6 +7,8 @@ tags: [FreeBSD]
 
 FreeBSD Gateway可以利用ipfw來達成流量限制的功能,想要使用這個除了/etc/rc.conf需要設定以外,還需要讓kernel的dummynet啟動才會正常啟動
 
+<!--more-->
+
 # Dummynet
 
 ## 動態載入

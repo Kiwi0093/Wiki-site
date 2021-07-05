@@ -14,6 +14,8 @@ tags: [Linux, Archlinux]
 
   [https://Kiwi0093.github.io/script/Arch/arch_v2ray_gate.sh](https://Kiwi0093.github.io/script/Arch/arch_v2ray_gate.sh)
 
+<!--more-->
+
 ## Script內容
 
 ### Script內容說明

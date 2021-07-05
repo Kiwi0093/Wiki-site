@@ -3,6 +3,12 @@ title: Wikitten Theme的安裝與設定
 tags: [Network,Server,Git,Wiki]
 ---
 
+# 前言
+
+這是我這個Wiki站的主體框架,除了一部分的配色我會自己改一下以外其他部份都原汁原味
+
+<!--more-->
+
 ### 安裝
 
 這個Theme安裝相較之下就簡單很多,只有`git clone`的安裝方法

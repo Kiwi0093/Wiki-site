@@ -4,6 +4,12 @@ date: 2020-12-04
 tag: [Linux, script]
 ---
 
+# 前言
+
+Loop是shell script裡面很重要的一個function
+
+<!--more-->
+
 ## Case迴圈
 
 ```

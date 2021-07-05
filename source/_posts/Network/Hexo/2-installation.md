@@ -3,6 +3,12 @@ title: Hexo安裝
 tags: [Network,Server,Git,Blog,Wiki]
 ---
 
+# 前言
+
+Hexo是個很簡單好用的靜態網頁產生工具,基本上就是需要npm+node.js
+
+<!--more-->
+
 ## 相關工具
 
 ### Git

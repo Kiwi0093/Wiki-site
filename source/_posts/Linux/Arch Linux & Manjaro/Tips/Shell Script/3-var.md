@@ -8,6 +8,8 @@ tag: [Linux, script]
 
 參考[iT邦幫忙-30天不間斷-資工隨筆大雜燴系列第20篇](https://ithelp.ithome.com.tw/articles/10225500)
 
+<!--more-->
+
 ## 基本變數定義
 
 ```bash

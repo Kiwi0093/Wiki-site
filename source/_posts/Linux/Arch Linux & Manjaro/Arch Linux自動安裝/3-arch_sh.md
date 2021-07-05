@@ -22,7 +22,7 @@ ip address add $YOUR_IP/24 dev $your_dev
 ip route add default $Gateway_IP dev $your_dev
 ```
 
-
+<!--more-->
 
 ## Script內容
 

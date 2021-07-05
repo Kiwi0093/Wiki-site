@@ -8,6 +8,8 @@ tags: [Network, V2Ray, VPN]
 
 VLESS的Server設定裡面已經包括了WS+TLS,所以設定後可以不需要另外設定Web Server(Nginx/Apache)
 
+<!--more-->
+
 ## 參考資料
 
 這篇的內容基本上就是直接拿V2Ray團隊的範例直接用,後續有更新再說

@@ -12,6 +12,8 @@ tags: [Linux, Archlinux]
 
   [https://Kiwi0093.github.io/script/Arch/simple_arch.sh](https://Kiwi0093.github.io/script/Arch/simple_arch.sh)
 
+<!--more-->
+
 ## Script內容
 
 ### Script內容說明

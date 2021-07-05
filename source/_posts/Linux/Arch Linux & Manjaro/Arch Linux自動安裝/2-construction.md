@@ -4,6 +4,12 @@ date: 2020-12-04
 tags: [Linux, Archlinux]
 ---
 
+# 前言
+
+其實不用搞成這麼複雜的,但是寫的時候想說寫的細一點,順便拿來練習寫shell script
+
+<!--more-->
+
 ## 架構說明
 
 因為**_Arch Linux_**的安裝邏輯如下

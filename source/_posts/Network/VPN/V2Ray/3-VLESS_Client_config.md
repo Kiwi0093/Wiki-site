@@ -8,6 +8,8 @@ tags: [Network, V2Ray, VPN]
 
 VLESS的Client設定其實很簡單只需要把原來VMESS的稍微改一下就好了, 因為Client的設定通常會包含Local DNS還有其他的相關設定,所以就不放完整的版本
 
+<!--more-->
+
 ## 參考資料
 
 這篇的內容基本上就是直接拿V2Ray團隊的範例直接用,後續有更新再說

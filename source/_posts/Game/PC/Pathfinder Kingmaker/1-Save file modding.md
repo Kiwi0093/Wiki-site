@@ -4,6 +4,12 @@ date: 2020-11-17
 tags: [Game,PC-Game,RPG]
 ---
 
+# 前言
+
+我很喜歡D&D類型的RPG,也很喜歡這種類冰風谷的CRPG,然而更大的樂趣,卻是亂搞遊戲本身...
+
+<!--more-->
+
 ### Save檔所在位置
 
 `C:\Users\{Username}\AppData\LocalLow\Owlcat Games\Pathfinder Kingmaker\Saved Games`

@@ -3,6 +3,12 @@ title: Navidrome
 tags: [VM, Container]
 ---
 
+# 前言
+
+音樂,是很重要的,本來是打算用NAS+Foobar2000來管理與播放我的音樂,但是後面發現其實音樂串流server+Web播放界面似乎更實用所以就挑了一個比較漂亮又輕量級的navidrome來使用
+
+<!--more-->
+
 # 前置準備
 
 ## 目錄結構

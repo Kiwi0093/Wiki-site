@@ -3,6 +3,12 @@ title: Photon OS 4.0 GA
 tags: [VM, Container]
 ---
 
+# 前言
+
+由於打算把所有的網路服務都逐步改成docker的方式,所以打算把底層的系統也換成Vmware針對docker等容器特化版的Linux - PhotoOS
+
+<!--more-->
+
 # Installation
 
 1. [下載Image ISO](https://github.com/vmware/photon/wiki/Downloading-Photon-OS)
@@ -232,7 +238,6 @@ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /va
   - `-v portainer_data:/data portainer/portainer-ce`
   
   ​       這裡是利用建立好的volume直接使用,若要自己定義位置,也可以就是把前面的部分定義成絕對位置的目錄也可以,然後就是寫入權限要滿足不然寫不進去
-  
 
 #### Certbot
 

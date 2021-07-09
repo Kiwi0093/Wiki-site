@@ -1,5 +1,5 @@
 ---
-title: Navidrome
+title: librenms
 tags: [VM, Container, FreeBSD]
 ---
 

@@ -98,6 +98,17 @@ cp librenms-agent/check_mk_agent_freebsd /usr/local/bin/check_mk_agent
 chmod +x /usr/local/bin/check_mk_agent
 ```
 
+上述的方法過時了..因為現在port裡面就有支援
+
+`/usr/ports/net-mgmt/check_mk_agent/`
+
+```bash
+cd /usr/ports/net-mgmt/check_mk_agent/
+make install clean
+```
+
+
+
 2. <font size=+1 color=Green><code>vi /etc/services </code></font>
 
 ```bash

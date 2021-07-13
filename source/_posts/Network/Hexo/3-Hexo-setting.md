@@ -265,3 +265,66 @@ $ hexo server --config custom.yml,custom2.json
 [OHLIA's Wiki](https://ohlia.github.io/Wiki-site/wiki/Hexo/build-blog-by-hexo/)
 
 [Hexo的官方文件](https://hexo.io/zh-tw/docs/)
+
+
+
+## 同場加映
+
+最近更新後常常會有
+
+```bash
+FATAL YAMLException: unknown tag !<tag:yaml.org,2002:js/regexp> (116:49)
+
+ 113 |  ... ttributes: true
+ 114 |  ... ce: true
+ 115 |  ... ore -->' https://hexo.io/docs/tag-plugins#Post-Excerpt
+ 116 |  ... ents: [ !!js/regexp /^\s*more/]
+------------------------------------------^
+ 117 |  ... true
+ 118 |  ... butes: true
+    at generateError (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:183:10)
+    at throwError (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:187:9)
+    at composeNode (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1521:7)
+    at readFlowCollection (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:780:5)
+    at composeNode (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1442:11)
+    at readBlockMapping (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1164:11)
+    at composeNode (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1441:12)
+    at readBlockMapping (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1164:11)
+    at composeNode (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1441:12)
+    at readDocument (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1625:3)
+    at loadDocuments (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1688:5)
+    at Object.load (/home/kiwi/GitHub/Wiki-site/node_modules/js-yaml/lib/loader.js:1714:19)
+    at Hexo.yamlHelper (/home/kiwi/GitHub/Wiki-site/node_modules/hexo/lib/plugins/renderer/yaml.js:7:15)
+    at Hexo.tryCatcher (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/util.js:16:23)
+    at Hexo.<anonymous> (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/method.js:15:34)
+    at /home/kiwi/GitHub/Wiki-site/node_modules/hexo/lib/hexo/render.js:75:22
+    at tryCatcher (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/promise.js:547:31)
+    at Promise._settlePromise (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/promise.js:604:18)
+    at Promise._settlePromise0 (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/promise.js:649:10)
+    at Promise._settlePromises (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/promise.js:729:18)
+    at _drainQueueStep (/home/kiwi/GitHub/Wiki-site/node_modules/bluebird/js/release/async.js:93:12) {
+  reason: 'unknown tag !<tag:yaml.org,2002:js/regexp>',
+.......
+```
+
+這樣的錯誤訊息跑出來,解決方案如下
+
+```bash
+# /under/your/web/_config.yml
+---------------------------------------------------------------------------------------------------------------------------------
+....
+html_minifier:  
+  collapseBooleanAttributes: true
+  collapseWhitespace: true
+  # Ignore '<!-- more -->' https://hexo.io/docs/tag-plugins#Post-Excerpt
+  #ignoreCustomComments: [ !!js/regexp /^\s*more/]		#把這行Mark掉就好了
+  removeComments: true
+  removeEmptyAttributes: true
+  removeScriptTypeAttributes: true
+  removeStyleLinkTypeAttributes: true
+  minifyJS: true
+  minifyCSS: true
+...
+```
+

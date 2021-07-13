@@ -9,7 +9,7 @@ Hexo Plugin官方網頁:[https://hexo.io/plugins/](https://hexo.io/plugins/)
 
 <!--more-->
 
-基本命令
+### 基本命令
 
 ```bash
 #安裝
@@ -17,6 +17,36 @@ npm install <plugin> --save
 #解除安裝
 npm uninstall <plugin> --save
 #更新plugin & Framework(under Hexo Dir)
+npm update
+```
+
+### 追加指令
+
+先安裝npm-check-update
+
+```bash
+#Manjaro環境
+pacman -S npm-check-update
+```
+
+有用的指令
+
+```bash
+#確認哪些package過期了
+npm outdate
+
+#確認是否有最新的package
+npm-check-update
+#update package.json
+ncu -u
+#更新package
+npm install
+```
+
+另外,當git clone下整個Blog(包含package.json)時可以不用重新下安裝指令
+
+```bash
+#依照package.json更新整個node_module
 npm update
 ```
 

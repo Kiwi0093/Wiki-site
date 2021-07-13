@@ -592,7 +592,7 @@
     "hexo-pagination" "1.0.0"
     "timsort" "^0.3.0"
 
-"hexo-generator-json-content@^4.0.0":
+"hexo-generator-json-content@^4.2.3":
   "integrity" "sha512-XGqCaTUr6+X8Ty/YvRi+0eh0DJgHcp+lgBhn+Sgyh6ev40P0cwamwJyaZroTdHt8GPoBwbSGVu0H/CdzEf0lFA=="
   "resolved" "https://registry.npmjs.org/hexo-generator-json-content/-/hexo-generator-json-content-4.2.3.tgz"
   "version" "4.2.3"
@@ -679,7 +679,7 @@
     "hexo-util" "^2.1.0"
     "marked" "^2.0.0"
 
-"hexo-renderer-stylus@^2.0.0":
+"hexo-renderer-stylus@^2.0.1":
   "integrity" "sha512-1S4AG8RtzWqVrqKIYv2AJ4UYms5SHDjkdYS7IiGwgUejL24agbTktpAbnH2cG1JWZ15SRqYN0UGB9aAoSAgvEA=="
   "resolved" "https://registry.npmjs.org/hexo-renderer-stylus/-/hexo-renderer-stylus-2.0.1.tgz"
   "version" "2.0.1"
@@ -723,7 +723,7 @@
     "prismjs" "^1.17.1"
     "strip-indent" "^3.0.0"
 
-"hexo@^5.0.0":
+"hexo@^5.4.0":
   "integrity" "sha512-4vMDle5GjpMeOVrx0NKoTZCqrmpJVg3wNiNNUVjcoFfcpYcMzQUCZHBtQqLl7BzjJ8x2gs002VQ5yv0ZKtj8Jg=="
   "resolved" "https://registry.npmjs.org/hexo/-/hexo-5.4.0.tgz"
   "version" "5.4.0"

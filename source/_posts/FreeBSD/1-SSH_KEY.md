@@ -9,26 +9,26 @@ tags: [Linux, FreeBSD]
 
 <!--more-->
 
-#### 參考網頁
+# 參考網頁
 
 [MIS腳印 - Windows 使用 SSH 金鑰免密碼登入 Linux](https://www.footmark.info/linux/centos/windows-ssh-nopassword-linux/)
 
-#### 需求工具
+# 需求工具
 
 * Windows - [Putty](https://www.putty.org/), [Puttygen](https://www.puttygen.com/)
 
-#### 基本概念
+# 基本概念
 
 基本上想要利用SSH Key來連線就是需要在Client端有private Key,對應Server上的public Key去進行連線,而Putty,WinSCP這些程式吃Putty的ppk格式,所以建立好的private key還需要轉換成ppk格式才能讓這些client使用
 
-#### 作法
+# 作法
 
 有兩個方法都可以達成
 
 1. 從Linux/FreeBSD生成Key,然後用Puttygen轉換成ppk檔
 2. 從Puttygen生成Key,然後把public Key轉貼到Linux/FreeBSD上
 
-##### 從Linux/FreeBSD生成Key
+## 從Linux/FreeBSD生成Key
 
 ```zsh
 #確認你在登入的帳號下
@@ -83,7 +83,7 @@ chmod 644 ~/.ssh/authorized_keys
 
 鍵入自己想要的密碼後Save as a ppk file就好了
 
-##### 從Puttygen生成
+## 從Puttygen生成
 
 ![puttygen-generate](https://raw.githubusercontent.com/Kiwi0093/graph/master/img/puttygen-3.png)
 
@@ -121,3 +121,29 @@ UsePAM no
 ```
 
 改好後重新啟動sshd就好了
+
+
+
+## 同場加映 - 在企鵝下的ppk->pem
+
+因為時常會用Manjaro client,所以去查了一下, Manjaro安裝putty後就自動裝上puttygen了,所以不需要再安裝,使用Ubuntu/Debian的人還還需要裝上
+
+```bash
+#安裝Putty工具
+apt install putty-tools
+```
+
+有了工具就轉檔
+
+```bash
+#把你的ppk檔轉成pem檔供ssh client直接使用
+puttygen yourkey.ppk -O private-openssh -o yourkey.pem
+```
+
+轉好後就可以用以下指令登入
+
+```bash
+#使用pem登入
+ssh -i /your/key/file user@hostname.or.ip
+```
+

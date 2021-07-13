@@ -14,11 +14,11 @@ tags: [Linunx, Manjaro]
 
 # Tweak
 
-### 環境條件
+## 環境條件
 
 * Manjaro KDE 21.0.7
 
-#### 變更Mirror-list
+### 變更Mirror-list
 
 Manjaro比Arch人性化的地方在於它有提供工具可以直接變更Mirror-list而不用靠編輯文件檔(可能其他人會覺得那樣比較簡潔乾淨又快速)
 
@@ -33,9 +33,17 @@ sudo pacman-mirrors --fasttrack <數量>
 
 現在回台灣了應該都會改以速度為原則來選,甚至不選就可以了
 
-#### VM Guest OS
+### 安裝VGA Driver
 
-##### 安裝ISO無法開機
+```bash
+sudo mhwd -a [pci or usb connection] [free or nonfree drivers] 0300
+```
+
+這個就會自動確認並且下載安裝了
+
+### VM Guest OS
+
+#### 安裝ISO無法開機
 
 這個發生在21.0.6版,理由大概是因為Manjaro針對VM Guest的Driver做了調整,所以導致預設開機的driver=free無法正確驅動顯示,導致會卡在mhwd偵測
 
@@ -50,7 +58,7 @@ driver=mesa
 
 改用mesa來驅動顯示就可以了開了,不過21.0.7的時候這個問題又被改好了
 
-##### 進入VM後無法resize解析度以及不會自動fit畫面大小
+#### 進入VM後無法resize解析度以及不會自動fit畫面大小
 
 這個是目前21版的毛病(以前用20或是19沒有這個問題不知道後面的版本會不會修正)原因是因為缺乏VM顯示的driver造成的
 
@@ -63,11 +71,11 @@ sudo pacman -S open-vm-tools virtualbox-guest-utils
 
 但是這樣畫面就可以動了,於是我也就先不管了
 
-#### Console
+### Console
 
 之前我會自己裝powerline,或是power10k這種東西來美化我的console,但是很神奇的是,21.0.7開始Manjaro的zsh就有寫好漂漂亮亮的powerline顯示可以使用,我就不用自己再弄,但是還是需要調整一下
 
-##### tmux
+#### tmux
 
 Tmux其實就是我以前愛用的Screen的強化版(真的強很多)
 
@@ -112,7 +120,7 @@ tmxu at -t $數字
 * [ryerh的github](https://gist.github.com/ryerh/14b7c24dfd623ef8edc7)
 
 
-##### yakuake
+#### yakuake
 
 這是一個下拉式的console,以前我會移除,但是最近發現他其實很好用,所以就保留著,設定上沒什麼特別的,基本上就是
 
@@ -124,7 +132,7 @@ tmxu at -t $數字
 
 沒有exit前再次按F12會回到正在跑的console,這點很好用
 
-##### yay
+#### yay
 
 ```bash
 sudo pacman -S base-devel yay
@@ -132,7 +140,7 @@ sudo pacman -S base-devel yay
 
 這是神器肯定要上的
 
-##### 中文輸入
+#### 中文輸入
 
 這個是我們作為中文使用者需要的東西,在Linux上我喜歡用新酷音
 
